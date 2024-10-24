@@ -6,7 +6,7 @@ namespace AMorfar_MVC.Controllers
     {
         public IActionResult Index()
         {
-            //Prueba del COMMIY y PUSH
+            //Prueba del COMMIT y PUSH
             return View();
         }
     }
