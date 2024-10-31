@@ -1,0 +1,171 @@
+<diagram program="umletino" version="15.1"><zoom_level>9</zoom_level><element><id>UMLClass</id><coordinates><x>2124</x><y>0</y><w>189</w><h>171</h></coordinates><panel_attributes>&lt;&lt;Class&gt;&gt;
+App
+--
+
+
+--
+- generaPedido(): boolean
+- agregaPedido(): Pedido
+- generaTicket(pedido): Ticket
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>2520</x><y>756</y><w>189</w><h>171</h></coordinates><panel_attributes>&lt;&lt;Class&gt;&gt;
+Producto
+--
+- nombre: String
+- precio: double
+- id: int
+
+
+--</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>2124</x><y>477</y><w>189</w><h>171</h></coordinates><panel_attributes>&lt;&lt;Class&gt;&gt;
+Pedido
+--
+_+NUMERO_PEDIDO : int_
+- total: double
+--
++ generaNumeroPedido():
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>2214</x><y>162</y><w>72</w><h>333</h></coordinates><panel_attributes>lt=&lt;-
+m1=0..n
+- pedidos</panel_attributes><additional_attributes>10;350;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>2304</x><y>819</y><w>234</w><h>45</h></coordinates><panel_attributes>lt=&lt;-
+m1=1..n
+
+- productos</panel_attributes><additional_attributes>240;20;10;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>2475</x><y>180</y><w>189</w><h>171</h></coordinates><panel_attributes>&lt;&lt;Class&gt;&gt;
+Ticket
+--
+- total: double
+- id: int
+- propina: double
+--
+- Ticket(double, int, double)
++ ticketConPropina()</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>2304</x><y>90</y><w>288</w><h>108</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>300;100;300;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>2007</x><y>117</y><w>135</w><h>468</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>130;500;10;500;10;10;130;10</additional_attributes></element><element><id>Relation</id><coordinates><x>2304</x><y>342</y><w>288</w><h>207</h></coordinates><panel_attributes>lt=-&gt;
+m1=1
+
+- pedido</panel_attributes><additional_attributes>290;10;290;200;10;200</additional_attributes></element><element><id>UMLClass</id><coordinates><x>2124</x><y>765</y><w>189</w><h>171</h></coordinates><panel_attributes>&lt;&lt;Class&gt;&gt;
+Comanda
+--
+
+--
++ compartidoCon(Persona) :
++ compartidoCon(Persona[]) :</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>2214</x><y>639</y><w>81</w><h>144</h></coordinates><panel_attributes>lt=&lt;-
+m1=1..n
+- comandas</panel_attributes><additional_attributes>10;140;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1818</x><y>765</y><w>189</w><h>171</h></coordinates><panel_attributes>&lt;&lt;Class&gt;&gt;
+Persona
+--
+- DNI: String
+- nombre : String
+
+--
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1998</x><y>846</y><w>144</w><h>45</h></coordinates><panel_attributes>lt=&lt;-
+m1=1..n
+- comanda</panel_attributes><additional_attributes>140;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>1998</x><y>810</y><w>144</w><h>45</h></coordinates><panel_attributes>lt=-&gt;
+m1=1..n
+- persona</panel_attributes><additional_attributes>140;20;10;20</additional_attributes></element><element><id>UMLNote</id><coordinates><x>2115</x><y>954</y><w>180</w><h>153</h></coordinates><panel_attributes>Acá funcionaría como
+carrito de compras
+debido a que cada Persona
+añade el Producto que desea a
+su propio Pedido que sería
+su Carrito de Compras.
+Se debe seleccionar si ese 
+Producto se va a compartir o no,
+y si se va a compartir, entre que
+Personas se va a Compartir
+bg=orange</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLNote</id><coordinates><x>2160</x><y>864</y><w>108</w><h>45</h></coordinates><panel_attributes>CarritoDeCompras
+bg=blue</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLNote</id><coordinates><x>2160</x><y>594</y><w>99</w><h>36</h></coordinates><panel_attributes>PedidoTotal
+bg=blue</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1899</x><y>594</y><w>243</w><h>189</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>10;190;10;10;250;10</additional_attributes></element><element><id>Relation</id><coordinates><x>2304</x><y>594</y><w>333</w><h>180</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>350;180;350;10;10;10</additional_attributes></element><element><id>UMLPackage</id><coordinates><x>1809</x><y>441</y><w>126</w><h>63</h></coordinates><panel_attributes>||
+--
+Clases + Atributos
+en C#
+bg=orange</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>846</x><y>180</y><w>189</w><h>171</h></coordinates><panel_attributes>&lt;&lt;Class&gt;&gt;
+App
+--
+
+
+--
+- generaPedido(): boolean
+- agregaPedido(): Pedido
+- generaTicket(pedido): Ticket
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1242</x><y>756</y><w>189</w><h>171</h></coordinates><panel_attributes>&lt;&lt;Class&gt;&gt;
+Producto
+--
+- nombre: String
+- precio: double
+- id: int
+
+
+--</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>846</x><y>486</y><w>189</w><h>189</h></coordinates><panel_attributes>&lt;&lt;Class&gt;&gt;
+Pedido
+--
+_+NUMERO_PEDIDO : int_
+- total: double
+- propina: double
+--
++ generaNumeroPedido():
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1026</x><y>819</y><w>234</w><h>45</h></coordinates><panel_attributes>lt=&lt;-
+m1=1..n
+
+- productos</panel_attributes><additional_attributes>240;20;10;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>846</x><y>765</y><w>189</w><h>171</h></coordinates><panel_attributes>&lt;&lt;Class&gt;&gt;
+Comanda
+--
+
+--
++ compartidoCon(Persona) :
++ compartidoCon(Persona[]) :</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>936</x><y>666</y><w>81</w><h>117</h></coordinates><panel_attributes>lt=&lt;-
+m1=1..n
+- comandas</panel_attributes><additional_attributes>10;110;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>540</x><y>765</y><w>189</w><h>171</h></coordinates><panel_attributes>&lt;&lt;Class&gt;&gt;
+Persona
+--
+- DNI: String
+- nombre : String
+- apellido : String
+
+--
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>720</x><y>846</y><w>144</w><h>45</h></coordinates><panel_attributes>lt=&lt;-
+m1=1..n
+- comanda</panel_attributes><additional_attributes>140;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>720</x><y>810</y><w>144</w><h>45</h></coordinates><panel_attributes>lt=-&gt;
+m1=1..n
+- persona</panel_attributes><additional_attributes>140;20;10;20</additional_attributes></element><element><id>UMLNote</id><coordinates><x>882</x><y>864</y><w>108</w><h>45</h></coordinates><panel_attributes>CarritoDeCompras
+bg=blue</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLNote</id><coordinates><x>891</x><y>612</y><w>99</w><h>36</h></coordinates><panel_attributes>PedidoTotal
+bg=blue</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>621</x><y>594</y><w>243</w><h>189</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>10;190;10;10;250;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1026</x><y>594</y><w>333</w><h>180</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>350;180;350;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>927</x><y>342</y><w>72</w><h>162</h></coordinates><panel_attributes>lt=&lt;-
+- pedidos
+m1=0..n</panel_attributes><additional_attributes>10;160;10;10</additional_attributes></element><element><id>UMLNote</id><coordinates><x>1035</x><y>648</y><w>207</w><h>108</h></coordinates><panel_attributes>Establecer bien donde se define
+la cant que elige cada Persona de cada
+Producto que elija.
+Iría en la Comanda?
+O tambien cada Producto tiene su cant 
+definida y en la comanda se puede
+elegir hasta esa cant
+bg=orange</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLNote</id><coordinates><x>621</x><y>495</y><w>216</w><h>63</h></coordinates><panel_attributes>El Pedido muestra el total de la mesa. 
+Es por esto que se le debería asignar a
+cada persona cuanto consumió cada una 
+en algún momento.
+bg=orange</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>567</x><y>1008</y><w>144</w><h>99</h></coordinates><panel_attributes>&lt;&lt;enum&gt;&gt;
+_MetodoDePago_
+--
++ EFECTIVO
++ TARJETA
++ BILLETERA_VIRTUAL
++ INVITA_AMIGO</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>630</x><y>927</y><w>99</w><h>99</h></coordinates><panel_attributes>lt=&lt;-
+- metodoPago
+m1=1</panel_attributes><additional_attributes>10;90;10;10</additional_attributes></element><element><id>UMLNote</id><coordinates><x>720</x><y>693</y><w>126</w><h>63</h></coordinates><panel_attributes>Cuales sería la 
+relación entre Persona
+y Comanda con la
+corrección de Miriam?
+bg=blue</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>801</x><y>954</y><w>504</w><h>63</h></coordinates><panel_attributes>Formato Tabla SQL
+--
+Les parece:
+ID_Pedido | nombre | apellido | dni | producto | cantProducto | gastó | propina | métodoPago
+?
+bg=orange</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>801</x><y>1026</y><w>306</w><h>108</h></coordinates><panel_attributes>DUDA
+--
+El método buscarPersonaPorDNI
+en el código iría en Actividad_Persona y en
+Persistir_Persona pero con lo que vimos en JAVA,
+no debería ir en la clase que tenga una lista de Personas?
+o por la arquitectura de Capas y MVC ya no es mas así?
+bg=orange</panel_attributes><additional_attributes></additional_attributes></element></diagram>

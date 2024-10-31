@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AMorfar_MVC.Models
 {
@@ -15,8 +16,8 @@ namespace AMorfar_MVC.Models
             this.nombre = nombre;
         }
          */
-        [Key]
-        public int ID { get; set; } 
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; } 
 
         [MaxLength(8), Required] //Declaramos que el DNI puede tomar máximo 8 valores y que es requerido obligatoriamente.
         public string? DNI { get; set; }

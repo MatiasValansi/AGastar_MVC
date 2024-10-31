@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AMorfar_MVC.Models
 {
@@ -15,8 +16,8 @@ namespace AMorfar_MVC.Models
         }
          */
 
-        [Key]
-        public int ID { get; set; }
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
         [Required]
         public string Nombre { get; set; }
         [Required]
