@@ -1,7 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Drawing;
-using System.Reflection.PortableExecutable;
 
 namespace AMorfar_MVC.Models
 {
@@ -11,7 +9,16 @@ namespace AMorfar_MVC.Models
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)] //Serán Anotation para ID_PEDIDO. Key = Primaria, por lo tanto, NO puede recibir nulo | DatabaseGenerated(DatabaseGeneratedOption.Identity: será autoEnumerada, un autoEnumerado es un ID de Pedido que cuenta automáticamente
         public int Id { get; set; }
         public double Total { get; set; }
-        public double Propina { get; set; }         
+        public double Propina { get; set; }
+
+        [Required]
+        public string Titulo { get; set; }
+        public DateTime Fecha { get; set; }
+
+        public string Lugar { get; set; }
+
+        public string AdicionalInfo { get; set; }
+
         public List<Comanda>? Comandas { get; set; }
 
     }

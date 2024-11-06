@@ -10,6 +10,7 @@ html {
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+  outline:none;
 }
 
 html {
@@ -19,4 +20,22 @@ html {
 
 body {
   margin-bottom: 60px;
+}
+
+textarea {
+    max-height: 350px;
+}
+
+/*quitar flechas los input number*/
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
 }
