@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AMorfar_MVC.Controllers
 {
-    public class PedidosController : Controller 
+    public class PedidoController : Controller 
     {
         readonly Context context = new();
         public IActionResult Index()
