@@ -9,5 +9,6 @@ namespace AMorfar_MVC.Models
         public int Id { get; set; }
         public Pedido? Pedido { get; set; }
         public int PedidoActual { get; set; }
+        List<ComandasPersonas> ComandasPersonas { get; set; }
     }
 }
