@@ -1,5 +1,67 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<Pedido>
 @{
+    ViewData["Title"] = "Lista de pedidos";
 }
+<div class="container my-5">
+    <h1 class="text-center mb-4">Lista de Pedidos</h1>
+
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-8 text-end">
+            <a class="btn btn-primary btn-lg" asp-controller="Pedidos" asp-action="Crear"> <!--Invoca al metodo Crear de PedidosController-->
+                <i class="bi bi-plus-circle me-2"></i>Crear Nuevo Pedido
+            </a>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Titulo</th>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    if(Model != null && Model.Count > 0)
+                                        foreach(var p in Model)
+                                        {
+                                            <tr>
+                                                <th scope="row">@p.Id</th>
+                                                <td>@p.Titulo</td>
+                                                <td>@p.Fecha.ToString("dd/MM/yyyy")</td>
+                                                <td>$ @p.Total</td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary me-1" title="Ver detalles">
+                                                        <i class="bi bi-eye"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-danger" title="Eliminar">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="5" class="text-center">
+                                                No hay ningún pedido. <a asp-controller="Pedidos" asp-action="Crear">Crea uno!</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
