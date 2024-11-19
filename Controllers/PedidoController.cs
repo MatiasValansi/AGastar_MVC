@@ -26,15 +26,22 @@ namespace AMorfar_MVC.Controllers
             Pedido newPedido = new()
             {
                 Titulo = pedido.Titulo,
-                Lugar = pedido.Lugar,
+                //Lugar = pedido.Lugar,
                 Propina = pedido.Propina,
-                AdicionalInfo = pedido.AdicionalInfo,
+                //AdicionalInfo = pedido.AdicionalInfo,
                 Fecha = DateTime.Now
             };
             
             Response response = Helper.Guardar(context, newPedido);
             ViewData.Add("Response", response);
             // lo devuelvo a la misma vista, con la diferencia de que en la viewbag le mando la respuesta que me haya devuelto el metodo Guardar
+            return View();
+        }
+
+        public IActionResult DetalleDePedido()
+        {
+            //var queryParam = ....{PedidoId}
+
             return View();
         }
 

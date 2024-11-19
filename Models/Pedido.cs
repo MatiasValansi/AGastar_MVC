@@ -15,9 +15,9 @@ namespace AMorfar_MVC.Models
         public string Titulo { get; set; }
         public DateTime Fecha { get; set; }
 
-        public string Lugar { get; set; }
+        //public string Lugar { get; set; }
 
-        public string AdicionalInfo { get; set; }
+        //public string AdicionalInfo { get; set; }
 
         public List<Comanda>? Comandas { get; set; }
 
