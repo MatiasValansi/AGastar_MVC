@@ -12,10 +12,10 @@ namespace AMorfar_MVC
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
+            //if (!app.Environment.IsDevelopment())
+            //{
+            //    app.UseExceptionHandler("/Home/Error");
+            //}
             app.UseStaticFiles();
 
             app.UseRouting();
@@ -24,7 +24,7 @@ namespace AMorfar_MVC
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Pedido}/{action=Index}/{id?}");
 
             app.Run();
         }

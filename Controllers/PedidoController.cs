@@ -1,4 +1,5 @@
-﻿using AMorfar_MVC.Helpers;
+﻿using AMorfar_MVC.Contexts;
+using AMorfar_MVC.Helpers;
 using AMorfar_MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,13 +27,14 @@ namespace AMorfar_MVC.Controllers
             Pedido newPedido = new()
             {
                 Titulo = pedido.Titulo,
-                //Lugar = pedido.Lugar,
                 Propina = pedido.Propina,
-                //AdicionalInfo = pedido.AdicionalInfo,
                 Fecha = DateTime.Now
             };
-            
-            Response response = Helper.Guardar(context, newPedido);
+
+            //Response response = Helper.Guardar(context, newPedido);
+            Response response = new Response(true, "asd");
+            context.Add(newPedido);
+            context.SaveChanges();
             ViewData.Add("Response", response);
             // lo devuelvo a la misma vista, con la diferencia de que en la viewbag le mando la respuesta que me haya devuelto el metodo Guardar
             return View();
