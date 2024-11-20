@@ -11,6 +11,9 @@ namespace AMorfar_MVC.Models
         [MaxLength(50)]
         public string? Nombre { get; set; }
 
+        public double Saldo { get; set; }
+
+        // Relaciones
         List<ComandasPersonas>? ComandasPersonas { get; set; }
 
         public int PedidoActual { get; set; }

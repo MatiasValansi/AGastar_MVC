@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AMorfar_MVC.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20241120001748_Se agrega relacion entre pedidos y personas")]
-    partial class Seagregarelacionentrepedidosypersonas
+    [Migration("20241120005637_Se quita el cascade action")]
+    partial class Sequitaelcascadeaction
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -119,7 +119,7 @@ namespace AMorfar_MVC.Migrations
                     b.HasOne("AMorfar_MVC.Models.Pedido", "Pedido")
                         .WithMany("Comandas")
                         .HasForeignKey("PedidoActual")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Pedido");
@@ -149,7 +149,7 @@ namespace AMorfar_MVC.Migrations
                     b.HasOne("AMorfar_MVC.Models.Pedido", "Pedido")
                         .WithMany("Personas")
                         .HasForeignKey("PedidoActual")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Pedido");

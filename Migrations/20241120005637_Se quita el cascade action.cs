@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AMorfar_MVC.Migrations
 {
     /// <inheritdoc />
-    public partial class Seagregarelacionentrepedidosypersonas : Migration
+    public partial class Sequitaelcascadeaction : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -42,8 +42,7 @@ namespace AMorfar_MVC.Migrations
                         name: "FK_Comandas_Pedidos_PedidoActual",
                         column: x => x.PedidoActual,
                         principalTable: "Pedidos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -62,8 +61,7 @@ namespace AMorfar_MVC.Migrations
                         name: "FK_Personas_Pedidos_PedidoActual",
                         column: x => x.PedidoActual,
                         principalTable: "Pedidos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(

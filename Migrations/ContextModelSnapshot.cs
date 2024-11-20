@@ -116,7 +116,7 @@ namespace AMorfar_MVC.Migrations
                     b.HasOne("AMorfar_MVC.Models.Pedido", "Pedido")
                         .WithMany("Comandas")
                         .HasForeignKey("PedidoActual")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Pedido");
@@ -146,7 +146,7 @@ namespace AMorfar_MVC.Migrations
                     b.HasOne("AMorfar_MVC.Models.Pedido", "Pedido")
                         .WithMany("Personas")
                         .HasForeignKey("PedidoActual")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Pedido");

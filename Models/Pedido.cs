@@ -15,6 +15,8 @@ namespace AMorfar_MVC.Models
 
         public DateTime Fecha { get; set; }
 
+
+        // Relaciones
         public List<Comanda>? Comandas { get; set; }
         public List<Persona>? Personas { get; set; }
 

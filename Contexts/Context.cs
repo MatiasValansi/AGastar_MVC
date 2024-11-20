@@ -26,14 +26,17 @@ namespace AMorfar_MVC.Contexts
             modelBuilder.Entity<Comanda>()   //La Comanda tiene:            
                 .HasOne(comanda => comanda.Pedido) //Se especifica con cual otra clase (o Entidad) tiene relación la clase Comanda.
                 .WithMany(pedido => pedido.Comandas) //La cardinalidad del UML entre Comanda y Pedido: en el UML se ve que Pedidos tiene de una a muchas (1...n) Comandas
-                .HasForeignKey(comanda => comanda.PedidoActual); //La Clave Foranea: es un atributo 
+                .HasForeignKey(comanda => comanda.PedidoActual) //La Clave Foranea: es un atributo 
+                .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<ComandasPersonas>().HasKey(cp => new { cp.IdPersona, cp.IdComanda });
+            modelBuilder.Entity<ComandasPersonas>()
+                .HasKey(cp => new { cp.IdPersona, cp.IdComanda });
 
             modelBuilder.Entity<Persona>()
                 .HasOne(persona => persona.Pedido)
                 .WithMany(pedido => pedido.Personas)
-                .HasForeignKey(persona => persona.PedidoActual);
+                .HasForeignKey(persona => persona.PedidoActual)
+                .OnDelete(DeleteBehavior.NoAction);
         }
 
     }
