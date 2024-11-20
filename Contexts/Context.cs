@@ -13,7 +13,7 @@ namespace AMorfar_MVC.Contexts
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // Reemplazar Data Soruce = NOMBRE_PC por . (un punto) o el nombre de mi PC.
-            optionsBuilder.UseSqlServer("Data Source = DESKTOP-BSH8LIC; Initial Catalog = AMorfar;" +
+            optionsBuilder.UseSqlServer("Data Source = MM-PC; Initial Catalog = AMorfar;" +
                 " Encrypt=true;" +
                 " TrustServerCertificate = true; Integrated Security = true");
             base.OnConfiguring(optionsBuilder);
@@ -26,8 +26,8 @@ namespace AMorfar_MVC.Contexts
             modelBuilder.Entity<Comanda>()   //La Comanda tiene:            
                 .HasOne(comanda => comanda.Pedido) //Se especifica con cual otra clase (o Entidad) tiene relación la clase Comanda.
                 .WithMany(pedido => pedido.Comandas) //La cardinalidad del UML entre Comanda y Pedido: en el UML se ve que Pedidos tiene de una a muchas (1...n) Comandas
-                .HasForeignKey(comanda => comanda.PedidoActual) //La Clave Foranea: es un atributo 
-                .OnDelete(DeleteBehavior.NoAction);
+                .HasForeignKey(comanda => comanda.PedidoActual)
+                .OnDelete(DeleteBehavior.NoAction); //La Clave Foranea: es un atributo 
 
             modelBuilder.Entity<ComandasPersonas>()
                 .HasKey(cp => new { cp.IdPersona, cp.IdComanda });

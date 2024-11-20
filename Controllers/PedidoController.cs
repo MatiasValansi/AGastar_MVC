@@ -32,24 +32,13 @@ namespace AMorfar_MVC.Controllers
                 Fecha = DateTime.Now
             };
 
-            try
-            {
-                context.Add(pedidoNuevo);
-                context.SaveChanges();
-
-                return RedirectToAction("AgregarPersonas", pedidoNuevo);
-            }
-            catch(Exception ex) {
-                ViewData.Add("Error", ex.Message);
-                return View();
-            }
-        }
-
-        public IActionResult AgregarPersonas(Pedido pedido)
-        {
-            ViewBag.pedido = pedido;
-            ViewBag.personas = context.Personas.Where(p => p.PedidoActual == pedido.PedidoId).ToList();
-            return View();
+            //Response response = Helper.Guardar(context, newPedido);
+            Response response = new Response(true, "asd");
+            context.Add(newPedido);
+            context.SaveChanges();
+            ViewData.Add("Response", response);
+            // lo devuelvo a la misma vista, con la diferencia de que en la viewbag le mando la respuesta que me haya devuelto el metodo Guardar
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
@@ -93,6 +82,12 @@ namespace AMorfar_MVC.Controllers
             return RedirectToAction("AgregarPersonas", pedido);
         }
 
+        public IActionResult Eliminar(Pedido pedido)
+        {
+            context.Remove(pedido);
+            context.SaveChanges();
 
+            return View();
+        }
     }
 }
