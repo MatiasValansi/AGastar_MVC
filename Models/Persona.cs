@@ -6,7 +6,7 @@ namespace AMorfar_MVC.Models
     public class Persona
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; } 
+        public int PersonaId { get; set; } 
 
         [MaxLength(50)]
         public string? Nombre { get; set; }

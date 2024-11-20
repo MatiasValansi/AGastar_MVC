@@ -4,6 +4,7 @@ using AMorfar_MVC.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AMorfar_MVC.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20241120033515_se normaliza los atributos de las clases")]
+    partial class senormalizalosatributosdelasclases
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,11 +27,11 @@ namespace AMorfar_MVC.Migrations
 
             modelBuilder.Entity("AMorfar_MVC.Models.Comanda", b =>
                 {
-                    b.Property<int>("ComandaId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ComandaId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Descripcion")
                         .IsRequired()
@@ -43,7 +46,7 @@ namespace AMorfar_MVC.Migrations
                     b.Property<double>("TotalPorPersona")
                         .HasColumnType("float");
 
-                    b.HasKey("ComandaId");
+                    b.HasKey("Id");
 
                     b.HasIndex("PedidoActual");
 
@@ -75,11 +78,11 @@ namespace AMorfar_MVC.Migrations
 
             modelBuilder.Entity("AMorfar_MVC.Models.Pedido", b =>
                 {
-                    b.Property<int>("PedidoId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PedidoId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
@@ -94,18 +97,18 @@ namespace AMorfar_MVC.Migrations
                     b.Property<double>("Total")
                         .HasColumnType("float");
 
-                    b.HasKey("PedidoId");
+                    b.HasKey("Id");
 
                     b.ToTable("Pedidos");
                 });
 
             modelBuilder.Entity("AMorfar_MVC.Models.Persona", b =>
                 {
-                    b.Property<int>("PersonaId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PersonaId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Nombre")
                         .HasMaxLength(50)
@@ -117,7 +120,7 @@ namespace AMorfar_MVC.Migrations
                     b.Property<double>("Saldo")
                         .HasColumnType("float");
 
-                    b.HasKey("PersonaId");
+                    b.HasKey("Id");
 
                     b.HasIndex("PedidoActual");
 

@@ -6,7 +6,7 @@ namespace AMorfar_MVC.Models
     public class Comanda
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int ComandaId { get; set; }
 
         public string Descripcion { get; set; }
 

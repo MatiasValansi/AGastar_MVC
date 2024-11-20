@@ -6,29 +6,21 @@
 }
 
 <div class="container my-5">
-    @if (ViewBag.Response != null) // esta validacion existe porque si viene del metodo GET, va a estar vacio y no queremos dibujar nada de notificaciones. Ademas el viewbag va a estar null y romperia todo.
+    @if (ViewBag.Error != null) 
     {
-        // si viene un boolean false, es porque hubo un error y el cartel sale rojo (estilos de la calse alert-danger), si viene true es un success.
-        string status = ViewBag.Response.Status ? "alert-success" : "alert-danger";
-
-        <div class="alert @status">
-            <strong>Pedido</strong> @ViewBag.response.Message ! <a asp-action="Index" asp-controller="Pedido">Volver</a>
+        <div class="alert alert-danger">
+            <strong>Ooops</strong> algo salió mal. @ViewBag.Error .
         </div>
     }
     <h1 class="text-center mb-4">Crear Nuevo Pedido</h1>
     <div class="row justify-content-center">
         <div class="card shadow-sm">
             <div class="card-body">
-                <form id="pedidoForm" method="post" enctype="multipart/form-data" asp-controller="Pedido" asp-action="Crear"> <!-- invoca al metodo Crear de PedidosController... pero como es un llamado de tipo POST, es el que tiene el annotation [HttpPost] -->
+                <form id="pedidoForm" method="post" enctype="multipart/form-data" asp-controller="Pedido" asp-action="Crear">
                     <div class="mb-3">
                         <label for="Titulo" class="form-label">Titulo</label>
                         <input type="text" class="form-control" id="Titulo" name="Titulo" placeholder="Cena de amigos..." required>
                     </div>
-
-                    @*<div class="mb-3">
-                        <label for="Lugar" class="form-label">Lugar</label>
-                        <input type="text" class="form-control" id="Lugar" name="Lugar" placeholder="Nombre del lugar...">
-                    </div> *@
 
                     <div class="mb-3">
                          <label for="Propina" class="form-label">Propina</label>
@@ -36,11 +28,6 @@
                              <input type="number" class="form-control" id="Propina" name="Propina" placeholder="10" style="width: 80px;"> %
                           </span>
                      </div>
-
-                    @*<div class="mb-3">
-                        <label for="AdicionalInfo" class="form-label">Notas Adicionales</label>
-                        <textarea class="form-control" id="AdicionalInfo" name="AdicionalInfo" rows="3"></textarea>
-                    </div> *@
 
                     <div class="d-grid gap-2">
                         <button type="submit" class="btn btn-primary btn-lg">
@@ -54,17 +41,3 @@
     </div>
 
 </div>
-
-<script>
-    const agregarIntegranteBtn = document.getElementById('agregarIntegrante');
-    const form = document.getElementById('pedidoForm');
-
-    function agregarIntegrante() {
-        const nuevoIntegrante = integrantes.children[0].cloneNode(true);
-        nuevoIntegrante.querySelectorAll('input, select').forEach(input => input.value = '');
-        nuevoIntegrante.querySelector('.pedidos-integrante').innerHTML = '';
-        integrantes.appendChild(nuevoIntegrante);
-        actualizarOpcionesCompartido();
-        configurarEventListeners(nuevoIntegrante);
-    }
-</script>

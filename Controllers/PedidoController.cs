@@ -2,6 +2,8 @@
 using AMorfar_MVC.Helpers;
 using AMorfar_MVC.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace AMorfar_MVC.Controllers
 {
@@ -10,12 +12,11 @@ namespace AMorfar_MVC.Controllers
         readonly Context context = new();
         public IActionResult Index()
         {
-            var pedidos = context.Pedidos.ToList();
+            var pedidos = context.Pedidos.OrderByDescending(p=>p.PedidoId).ToList();
             return View(pedidos);
         }
 
         [HttpGet]
-        // devuelve la vista que se llame Crear dentro de las views de Pedidos (el formulario)
         public IActionResult Crear() 
         {
             return View();
@@ -24,28 +25,74 @@ namespace AMorfar_MVC.Controllers
         [HttpPost]
         public IActionResult Crear(Pedido pedido)
         {
-            Pedido newPedido = new()
+            Pedido pedidoNuevo = new()
             {
                 Titulo = pedido.Titulo,
                 Propina = pedido.Propina,
                 Fecha = DateTime.Now
             };
 
-            //Response response = Helper.Guardar(context, newPedido);
-            Response response = new Response(true, "asd");
-            context.Add(newPedido);
-            context.SaveChanges();
-            ViewData.Add("Response", response);
-            // lo devuelvo a la misma vista, con la diferencia de que en la viewbag le mando la respuesta que me haya devuelto el metodo Guardar
-            return View();
+            try
+            {
+                context.Add(pedidoNuevo);
+                context.SaveChanges();
+
+                return RedirectToAction("AgregarPersonas", pedidoNuevo);
+            }
+            catch(Exception ex) {
+                ViewData.Add("Error", ex.Message);
+                return View();
+            }
         }
 
-        public IActionResult DetalleDePedido()
+        public IActionResult AgregarPersonas(Pedido pedido)
         {
-            //var queryParam = ....{PedidoId}
-
+            ViewBag.pedido = pedido;
+            ViewBag.personas = context.Personas.Where(p => p.PedidoActual == pedido.PedidoId).ToList();
             return View();
         }
+
+        [HttpPost]
+        public IActionResult AgregarPersona(Pedido pedido, Persona persona)
+        {
+            string error = "";
+            Persona personaNueva = new()
+            {
+                Nombre = persona.Nombre,
+                PedidoActual = pedido.PedidoId
+            };
+            try {
+                context.Add(personaNueva);
+                context.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                error = ex.Message;
+                ViewData.Add("Error", error);
+            }
+
+            return RedirectToAction("AgregarPersonas", pedido);
+        }
+
+        [HttpPost]
+        public IActionResult EliminarPersona(Persona p, Pedido pedido)
+        {
+            Persona persona = context.Personas.Find(p.PersonaId);
+            string error = "";
+            try
+            {
+                context.Remove(persona);
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message;
+                ViewData.Add("Error", error);
+            }
+
+            return RedirectToAction("AgregarPersonas", pedido);
+        }
+
 
     }
 }
