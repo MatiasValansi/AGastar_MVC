@@ -97,7 +97,7 @@ namespace AMorfar_MVC.Controllers
                 ViewData.Add("Error", error);
             }
 
-            return RedirectToAction("Index", pedido);
+            return RedirectToAction("Index");
         }
     }
 }
