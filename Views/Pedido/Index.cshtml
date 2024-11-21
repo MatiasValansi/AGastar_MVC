@@ -17,20 +17,20 @@
             if (pedidos != null && pedidos.Count > 0)
             {
                 <form asp-controller="Pedido">
-                    @foreach (Pedido p in pedidos)
+                    @foreach (Pedido cadaPedido in pedidos)
                     {
                         <div class="itemPedido fondoSecundario colorSecundario">
                             <div class="d-flex gap-2">
-                                <p class="fw-bold"># @p.PedidoId</p>
+                                <p class="fw-bold"># @cadaPedido.PedidoId</p>
                                 -
-                                <p>@p.Titulo</p>
+                                <p>@cadaPedido.Titulo</p>
                             </div>
                             <div class="d-flex align-items-center gap-2">
-                                <p>@p.Fecha.ToString("dd/MM/yyyy")</p>
-                                <a class="btn btn-sm btn-outline-primary me-1" title="Ver detalles" asp-action="MostrarDetalle">
+                                <p>@cadaPedido.Fecha.ToString("dd/MM/yyyy")</p>
+                                <a class="btn btn-sm btn-outline-primary me-1" title="Ver detalles" asp-action="Detalles" asp-route-id="@cadaPedido.PedidoId">
                                     <i class="bi bi-eye"></i>
                                 </a>
-                                <button asp-action="Eliminar" asp-route-id="@p.PedidoId" class="btn btn-sm btn-outline-danger" title="Eliminar" type="submit">
+                                <button asp-action="Eliminar" asp-route-id="@cadaPedido.PedidoId" class="btn btn-sm btn-outline-danger" title="Eliminar" type="submit">
                                     <i class="bi bi-trash"></i>
                                 </button>
                             </div>

@@ -111,5 +111,25 @@ namespace AMorfar_MVC.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public IActionResult Detalles(int id)
+        {
+
+            Pedido? pedido = null;
+
+            try
+            {
+                pedido = context.Pedidos.Find(id);
+                
+            }
+            catch (Exception ex)
+            {
+                ViewBag.error = ex.Message;
+            }
+
+            ViewBag.pedido = pedido;
+
+            return View();
+        }
     }
 }
