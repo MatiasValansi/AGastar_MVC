@@ -82,12 +82,23 @@ namespace AMorfar_MVC.Controllers
             return RedirectToAction("AgregarPersonas", pedido);
         }
 
-        public IActionResult Eliminar(Pedido pedido)
+        public IActionResult Eliminar(int id)
         {
-            context.Remove(pedido);
-            context.SaveChanges();
+            Pedido pedido = context.Pedidos.Find(id);
+            string error = "";
 
-            return View();
+            try
+            {
+                context.Remove(pedido);
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message;
+                ViewData.Add("Error", error);
+            }
+
+            return RedirectToAction("Index", pedido);
         }
     }
 }
