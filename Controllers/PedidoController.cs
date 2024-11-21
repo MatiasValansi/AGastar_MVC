@@ -34,7 +34,7 @@ namespace AMorfar_MVC.Controllers
 
             //Response response = Helper.Guardar(context, newPedido);
             Response response = new Response(true, "asd");
-            context.Add(newPedido);
+            context.Add(pedidoNuevo);
             context.SaveChanges();
             ViewData.Add("Response", response);
             // lo devuelvo a la misma vista, con la diferencia de que en la viewbag le mando la respuesta que me haya devuelto el metodo Guardar
