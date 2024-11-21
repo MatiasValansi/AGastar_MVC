@@ -1,3 +1,10 @@
+:root {
+    --fondo-primario: #15191A;
+    --fondo-secundario: #292C33;
+    --color-primario: #DB9245;
+    --color-secundario: #FBDAB7;
+}
+
 html {
   font-size: 14px;
 }
@@ -22,6 +29,14 @@ body {
   margin-bottom: 60px;
 }
 
+html, body {
+    background: var(--fondo-primario);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--color-primario);
+}
+
 textarea {
     max-height: 350px;
 }
@@ -38,4 +53,49 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
     -moz-appearance: textfield;
+}
+
+.colorPrimario {
+    color: var(--color-primario);
+}
+
+.colorSecundario {
+    color: var(--color-secundario);
+}
+
+.fondoPrimario{
+    background: var(--fondo-primario);
+}
+
+.fondoSecundario {
+    background: var(--fondo-secundario);
+}
+
+.listaNav {
+    display: flex;
+    padding: 0px;
+}
+
+    .listaNav > li {
+        list-style: none;
+    }
+
+        .listaNav > li > a {
+            color: var(--color-secundario);
+        }
+
+        .listaNav > li > a:hover {
+            color: var(--color-primario);
+        }
+
+nav{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.headerEspaciado{
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
 }

@@ -2,16 +2,17 @@
 @{
     ViewData["Title"] = "Lista de pedidos";
 }
-<div class="container my-5">
-    <h1 class="text-center mb-4">Lista de Pedidos</h1>
+<section class="container my-5">
 
-    <div class="row justify-content-center mb-4">
-        <div class="col-md-8 text-end">
-            <a class="btn btn-primary btn-lg" asp-controller="Pedido" asp-action="Crear"> <!--Invoca al metodo Crear de PedidosController-->
-                <i class="bi bi-plus-circle me-2"></i>Crear Nuevo Pedido
+    <section class="headerEspaciado col-8">
+        <h2>Lista de Pedidos</h2>
+
+        <span>
+            <a asp-controller="Pedido" asp-action="Crear">
+                <i class="bi bi-plus-circle colorPrimario btn-lg"></i>
             </a>
-        </div>
-    </div>
+        </span>
+    </section>
 
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -64,4 +65,4 @@
             </div>
         </div>
     </div>
-</div>
+</section>
