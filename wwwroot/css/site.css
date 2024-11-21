@@ -5,6 +5,12 @@
     --color-secundario: #FBDAB7;
 }
 
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
 html {
   font-size: 14px;
 }
@@ -99,4 +105,13 @@ nav{
     justify-content: space-between;
     align-items: center;
     margin: auto;
+}
+
+.itemPedido{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    margin: 16px 0px;
+    border-radius: 16px;
 }

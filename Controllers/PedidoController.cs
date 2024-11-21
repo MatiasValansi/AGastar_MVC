@@ -12,8 +12,8 @@ namespace AMorfar_MVC.Controllers
         readonly Context context = new();
         public IActionResult Index()
         {
-            var pedidos = context.Pedidos.OrderByDescending(p=>p.PedidoId).ToList();
-            return View(pedidos);
+            ViewBag.pedidos = context.Pedidos.OrderByDescending(p=>p.PedidoId).ToList();
+            return View();
         }
 
         [HttpGet]
@@ -32,17 +32,29 @@ namespace AMorfar_MVC.Controllers
                 Fecha = DateTime.Now
             };
 
-            //Response response = Helper.Guardar(context, newPedido);
-            Response response = new Response(true, "asd");
-            context.Add(pedidoNuevo);
-            context.SaveChanges();
-            ViewData.Add("Response", response);
-            // lo devuelvo a la misma vista, con la diferencia de que en la viewbag le mando la respuesta que me haya devuelto el metodo Guardar
-            return RedirectToAction("Index");
+            try
+            {
+                context.Add(pedidoNuevo);
+                context.SaveChanges();
+
+                return RedirectToAction("AgregarPersonas", pedidoNuevo);
+            }
+            catch (Exception ex)
+            {
+                ViewData.Add("Error", ex.Message);
+                return View();
+            }
+        }
+
+        public IActionResult AgregarPersonas(Pedido pedido)
+        {
+            ViewBag.pedido = pedido;
+            ViewBag.personas = context.Personas.Where(p => p.PedidoActual == pedido.PedidoId).ToList();
+            return View();
         }
 
         [HttpPost]
-        public IActionResult AgregarPersona(Pedido pedido, Persona persona)
+        public IActionResult AgregarPersonas(Pedido pedido, Persona persona)
         {
             string error = "";
             Persona personaNueva = new()

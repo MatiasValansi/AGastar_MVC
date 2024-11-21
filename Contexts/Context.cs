@@ -13,7 +13,7 @@ namespace AMorfar_MVC.Contexts
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // Reemplazar Data Soruce = NOMBRE_PC por . (un punto) o el nombre de mi PC.
-            optionsBuilder.UseSqlServer("Data Source = MM-PC; Initial Catalog = AMorfar;" +
+            optionsBuilder.UseSqlServer("Data Source = DESKTOP-BSH8LIC; Initial Catalog = AMorfar;" +
                 " Encrypt=true;" +
                 " TrustServerCertificate = true; Integrated Security = true");
             base.OnConfiguring(optionsBuilder);

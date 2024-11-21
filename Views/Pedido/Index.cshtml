@@ -1,71 +1,47 @@
-﻿@model List<Pedido>
-@{
+﻿@{
     ViewData["Title"] = "Lista de pedidos";
+    List<Pedido> pedidos = ViewBag.pedidos;
 }
 <section class="container my-5">
 
     <section class="headerEspaciado col-8">
         <h2>Lista de Pedidos</h2>
 
-        <span>
-            <a asp-controller="Pedido" asp-action="Crear">
-                <i class="bi bi-plus-circle colorPrimario btn-lg"></i>
-            </a>
-        </span>
+        <a asp-controller="Pedido" asp-action="Crear">
+            <i class="bi bi-plus-circle colorPrimario btn-lg"></i>
+        </a>
     </section>
 
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Titulo</th>
-                                    <th scope="col">Fecha</th>
-                                    <th scope="col">Total</th>
-                                    <th scope="col">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <form style="display: inline;" asp-controller="Pedido">
-                                @{
-                                    if(Model != null && Model.Count > 0)
-                                        foreach(var p in Model)
-                                        {
-                                            <tr>
-                                                <th scope="row">@p.PedidoId</th>
-                                                <td>@p.Titulo</td>
-                                                <td>@p.Fecha.ToString("dd/MM/yyyy")</td>
-                                                <td>$ @p.Total</td>
-                                                <td>
-                                                                                                                                                 <!-- Crear `MostrarDetalle` en PedidoController -->
-                                                    <a class="btn btn-sm btn-outline-primary me-1" title="Ver detalles" asp-action="MostrarDetalle">
-                                                        <i class="bi bi-eye"></i>
-                                                    </a>
-                                                    <button asp-action="Eliminar" asp-route-id="@p.PedidoId" class="btn btn-sm btn-outline-danger" title="Eliminar" type="submit">
-                                                        <i class="bi bi-trash"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        }
-                                    else
-                                    {
-                                        <tr>
-                                            <td colspan="5" class="text-center">
-                                                No hay ningún pedido. <a asp-controller="Pedido" asp-action="Crear">Crea uno!</a>
-                                            </td>
-                                        </tr>
-                                    }
-                                }
-                                </form>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <section class="container col-8">
+        @{
+            if (pedidos != null && pedidos.Count > 0)
+            {
+                <form asp-controller="Pedido">
+                    @foreach (Pedido p in pedidos)
+                    {
+                        <div class="itemPedido fondoSecundario colorSecundario">
+                            <div class="d-flex gap-2">
+                                <p class="fw-bold"># @p.PedidoId</p>
+                                -
+                                <p>@p.Titulo</p>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <p>@p.Fecha.ToString("dd/MM/yyyy")</p>
+                                <a class="btn btn-sm btn-outline-primary me-1" title="Ver detalles" asp-action="MostrarDetalle">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <button asp-action="Eliminar" asp-route-id="@p.PedidoId" class="btn btn-sm btn-outline-danger" title="Eliminar" type="submit">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    }
+                </form>
+            }
+            else
+            {
+                <h4 class="colorSecundario text-center p-5">No hay ningun pedido</h4>
+            }
+        }
+    </section>
 </section>
