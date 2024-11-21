@@ -40,12 +40,15 @@
                                                 <td>@p.Fecha.ToString("dd/MM/yyyy")</td>
                                                 <td>$ @p.Total</td>
                                                 <td>
-                                                    <button class="btn btn-sm btn-outline-primary me-1" title="Ver detalles">
+                                                                                                                                                 <!-- Crear `MostrarDetalle` en PedidoController -->
+                                                    <a class="btn btn-sm btn-outline-primary me-1" title="Ver detalles" asp-controller="Pedido" asp-action="MostrarDetalle">
                                                         <i class="bi bi-eye"></i>
-                                                    </button>
-                                                    <button class="btn btn-sm btn-outline-danger" title="Eliminar">
-                                                        <i class="bi bi-trash"></i>
-                                                    </button>
+                                                    </a>
+                                                    <form asp-controller="Pedido" asp-action="Eliminar" asp-route-id="@p.PedidoId" style="display: inline;">
+                                                        <button class="btn btn-sm btn-outline-danger" title="Eliminar" type="submit">
+                                                            <i class="bi bi-trash"></i>
+                                                        </button>
+                                                    </form>
                                                 </td>
                                             </tr>
                                         }
