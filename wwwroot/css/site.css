@@ -1,0 +1,117 @@
+:root {
+    --fondo-primario: #15191A;
+    --fondo-secundario: #292C33;
+    --color-primario: #DB9245;
+    --color-secundario: #FBDAB7;
+}
+
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+  outline:none;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+html, body {
+    background: var(--fondo-primario);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--color-primario);
+}
+
+textarea {
+    max-height: 350px;
+}
+
+/*quitar flechas los input number*/
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.colorPrimario {
+    color: var(--color-primario);
+}
+
+.colorSecundario {
+    color: var(--color-secundario);
+}
+
+.fondoPrimario{
+    background: var(--fondo-primario);
+}
+
+.fondoSecundario {
+    background: var(--fondo-secundario);
+}
+
+.listaNav {
+    display: flex;
+    padding: 0px;
+}
+
+    .listaNav > li {
+        list-style: none;
+    }
+
+        .listaNav > li > a {
+            color: var(--color-secundario);
+        }
+
+        .listaNav > li > a:hover {
+            color: var(--color-primario);
+        }
+
+nav{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.headerEspaciado{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+}
+
+.itemPedido{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    margin: 16px 0px;
+    border-radius: 16px;
+}
