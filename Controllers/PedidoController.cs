@@ -129,7 +129,7 @@ namespace AMorfar_MVC.Controllers
 
             ViewBag.pedido = pedido;
 
-            return View();
+            return View("Detalles", pedido);
         }
     }
 }
