@@ -19,8 +19,8 @@ namespace AMorfar_MVC.Models
 
 
         // Relaciones
-        public List<Comanda>? Comandas { get; set; }
-        public List<Persona>? Personas { get; set; }
+        //public List<Comanda>? Comandas { get; set; }
+        public List<Persona> Personas { get; set; }
 
     }
 }

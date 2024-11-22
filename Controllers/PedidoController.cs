@@ -97,13 +97,11 @@ namespace AMorfar_MVC.Controllers
 
         public IActionResult Eliminar(int id)
         {
-            Pedido pedido = context.Pedidos.Find(id);
+            Pedido? pedido = context.Pedidos.Find(id);
             string error = "";
-            pedido.Activo = false;
             try
             {
-                //context.Remove(pedido);
-                context.Pedidos.Update(pedido);
+                context.Remove<Pedido>(pedido);
                 context.SaveChanges();
             }
             catch (Exception ex)
@@ -122,9 +120,8 @@ namespace AMorfar_MVC.Controllers
             try
             {
                 pedido = context.Pedidos
-                    .Where(p=>p.PedidoId == id)
+                    .Where(p => p.PedidoId == id)
                     .Include(p => p.Personas) // Incluir las Personas relacionadas
-                    .Include(p => p.Comandas) // Incluir las Comandas relacionadas
                     .FirstOrDefault();
             }
             catch (Exception ex)

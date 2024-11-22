@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AMorfar_MVC.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20241122032050_sintaxis")]
-    partial class sintaxis
+    [Migration("20241122214926_test")]
+    partial class test
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,11 +34,7 @@ namespace AMorfar_MVC.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ComandaId"));
 
                     b.Property<string>("Descripcion")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PedidoActual")
-                        .HasColumnType("int");
 
                     b.Property<double>("Total")
                         .HasColumnType("float");
@@ -47,8 +43,6 @@ namespace AMorfar_MVC.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("ComandaId");
-
-                    b.HasIndex("PedidoActual");
 
                     b.ToTable("Comandas");
                 });
@@ -130,27 +124,16 @@ namespace AMorfar_MVC.Migrations
                     b.ToTable("Personas");
                 });
 
-            modelBuilder.Entity("AMorfar_MVC.Models.Comanda", b =>
-                {
-                    b.HasOne("AMorfar_MVC.Models.Pedido", "Pedido")
-                        .WithMany("Comandas")
-                        .HasForeignKey("PedidoActual")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Pedido");
-                });
-
             modelBuilder.Entity("AMorfar_MVC.Models.ComandasPersonas", b =>
                 {
                     b.HasOne("AMorfar_MVC.Models.Comanda", "Comanda")
-                        .WithMany()
+                        .WithMany("ComandasPersonas")
                         .HasForeignKey("ComandaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("AMorfar_MVC.Models.Persona", "Persona")
-                        .WithMany()
+                        .WithMany("ComandasPersonas")
                         .HasForeignKey("PersonaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -165,17 +148,25 @@ namespace AMorfar_MVC.Migrations
                     b.HasOne("AMorfar_MVC.Models.Pedido", "Pedido")
                         .WithMany("Personas")
                         .HasForeignKey("PedidoActual")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Pedido");
                 });
 
+            modelBuilder.Entity("AMorfar_MVC.Models.Comanda", b =>
+                {
+                    b.Navigation("ComandasPersonas");
+                });
+
             modelBuilder.Entity("AMorfar_MVC.Models.Pedido", b =>
                 {
-                    b.Navigation("Comandas");
-
                     b.Navigation("Personas");
+                });
+
+            modelBuilder.Entity("AMorfar_MVC.Models.Persona", b =>
+                {
+                    b.Navigation("ComandasPersonas");
                 });
 #pragma warning restore 612, 618
         }

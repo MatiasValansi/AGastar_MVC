@@ -18,7 +18,8 @@ namespace AMorfar_MVC.Models
         public int PedidoActual { get; set; }
         
         public Pedido? Pedido { get; set; }
-        List<ComandasPersonas>? ComandasPersonas { get; set; }
+        public List<ComandasPersonas>? ComandasPersonas { get; set; }
+        //public List<Comanda>? Comandas { get; set; }
 
     }
 

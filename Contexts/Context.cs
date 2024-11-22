@@ -21,22 +21,14 @@ namespace AMorfar_MVC.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Persona>()
+                .HasOne(p=>p.Pedido)
+                .WithMany(p => p.Personas)
+                .HasForeignKey(p=>p.PedidoActual)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<ComandasPersonas>()
                 .HasKey(cp => new { cp.IdPersona, cp.IdComanda });
-
-            modelBuilder.Entity<Pedido>()
-                .HasMany<Persona>(pedido => pedido.Personas)
-                .WithOne(persona => persona.Pedido)
-                .HasForeignKey(persona => persona.PedidoActual)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<Pedido>()
-                .HasMany<Comanda>(pedido => pedido.Comandas)
-                .WithOne(comanda => comanda.Pedido)
-                .HasForeignKey(comanda => comanda.PedidoActual)
-                .OnDelete(DeleteBehavior.Restrict);
-
 
         }
 

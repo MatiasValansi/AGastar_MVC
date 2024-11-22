@@ -8,14 +8,16 @@ namespace AMorfar_MVC.Models
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ComandaId { get; set; }
 
-        public string Descripcion { get; set; }
+        public string? Descripcion { get; set; }
 
         public double Total { get; set; }
 
         public double TotalPorPersona { get; set; }
         // Relaciones
-        public Pedido? Pedido { get; set; }
-        public int PedidoActual { get; set; }
-        List<ComandasPersonas> ComandasPersonas { get; set; }
+        //public Pedido? Pedido { get; set; }
+        //public int PedidoActual { get; set; }
+        //public List<Persona>? Personas { get; set; }
+        public List<ComandasPersonas>? ComandasPersonas { get; set; }
+
     }
 }

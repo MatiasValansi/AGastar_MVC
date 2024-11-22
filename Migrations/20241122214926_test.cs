@@ -6,11 +6,26 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AMorfar_MVC.Migrations
 {
     /// <inheritdoc />
-    public partial class relaciones : Migration
+    public partial class test : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Comandas",
+                columns: table => new
+                {
+                    ComandaId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Total = table.Column<double>(type: "float", nullable: false),
+                    TotalPorPersona = table.Column<double>(type: "float", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comandas", x => x.ComandaId);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Pedidos",
                 columns: table => new
@@ -20,33 +35,12 @@ namespace AMorfar_MVC.Migrations
                     Titulo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Total = table.Column<double>(type: "float", nullable: false),
                     Propina = table.Column<double>(type: "float", nullable: false),
-                    Fecha = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Activo = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pedidos", x => x.PedidoId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Comandas",
-                columns: table => new
-                {
-                    ComandaId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Total = table.Column<double>(type: "float", nullable: false),
-                    TotalPorPersona = table.Column<double>(type: "float", nullable: false),
-                    PedidoActual = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Comandas", x => x.ComandaId);
-                    table.ForeignKey(
-                        name: "FK_Comandas_Pedidos_PedidoActual",
-                        column: x => x.PedidoActual,
-                        principalTable: "Pedidos",
-                        principalColumn: "PedidoId",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -67,7 +61,7 @@ namespace AMorfar_MVC.Migrations
                         column: x => x.PedidoActual,
                         principalTable: "Pedidos",
                         principalColumn: "PedidoId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -95,11 +89,6 @@ namespace AMorfar_MVC.Migrations
                         principalColumn: "PersonaId",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Comandas_PedidoActual",
-                table: "Comandas",
-                column: "PedidoActual");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ComandasPersonas_ComandaId",
