@@ -13,16 +13,13 @@
     <h1 class="text-center mb-4">Agrega a los participantes</h1>
     <div class="row justify-content-center">
         <div class="card shadow-sm">
-            <div class="p-2 align-self-end">
-                <button class="btn btn-outline-secondary">Omitir</button>
-            </div>
             <div class="card-body">
                 <form id="pedidoForm" method="post" enctype="multipart/form-data" asp-controller="Pedido" asp-action="Crear" class="d-flex flex-column gap-4">
                     <div class="mb-3">
                         <label for="Nombre" class="form-label">Nombre</label>
                         <div class="d-flex">
                             <input type="text" class="form-control" id="Nombre" name="Nombre" placeholder="Pepe..." required>
-                            <button type="submit" class="btn btn-success btn-md" asp-controller="Pedido" asp-action="AgregarPersona">
+                            <button type="submit" class="btn btn-success btn-md" asp-controller="Pedido" asp-action="AgregarPersonas">
                                 <i class="bi bi-plus-lg"></i>
                             </button>
                         </div>
@@ -46,7 +43,7 @@
                     </div>
 
                     <div class="align-self-end">
-                        <a asp-controller="Pedido" asp-action="Detalle" class="btn btn-success">Finalizar</a>
+                        <a asp-controller="Pedido" asp-action="Detalles" asp-route-id="@ViewBag.pedido.PedidoId" class="btn btn-success">Finalizar</a>
                     </div>
 
                     <input type="hidden" name="PedidoId" value="@ViewBag.pedido.PedidoId" />

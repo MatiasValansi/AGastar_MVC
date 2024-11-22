@@ -2,6 +2,7 @@
 using AMorfar_MVC.Helpers;
 using AMorfar_MVC.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -12,7 +13,7 @@ namespace AMorfar_MVC.Controllers
         readonly Context context = new();
         public IActionResult Index()
         {
-            ViewBag.pedidos = context.Pedidos.OrderByDescending(p=>p.PedidoId).ToList();
+            ViewBag.pedidos = context.Pedidos.Where(p=>p.Activo).OrderByDescending(p=>p.PedidoId).ToList();
             return View();
         }
 
@@ -29,6 +30,7 @@ namespace AMorfar_MVC.Controllers
             {
                 Titulo = pedido.Titulo,
                 Propina = pedido.Propina,
+                Activo = true,
                 Fecha = DateTime.Now
             };
 
@@ -97,10 +99,11 @@ namespace AMorfar_MVC.Controllers
         {
             Pedido pedido = context.Pedidos.Find(id);
             string error = "";
-
+            pedido.Activo = false;
             try
             {
-                context.Remove(pedido);
+                //context.Remove(pedido);
+                context.Pedidos.Update(pedido);
                 context.SaveChanges();
             }
             catch (Exception ex)
@@ -114,13 +117,15 @@ namespace AMorfar_MVC.Controllers
 
         public IActionResult Detalles(int id)
         {
-
             Pedido? pedido = null;
 
             try
             {
-                pedido = context.Pedidos.Find(id);
-                
+                pedido = context.Pedidos
+                    .Where(p=>p.PedidoId == id)
+                    .Include(p => p.Personas) // Incluir las Personas relacionadas
+                    .Include(p => p.Comandas) // Incluir las Comandas relacionadas
+                    .FirstOrDefault();
             }
             catch (Exception ex)
             {

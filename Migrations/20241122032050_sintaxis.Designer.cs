@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AMorfar_MVC.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20241120034928_se cambia la nomenclatura de los atributos id")]
-    partial class secambialanomenclaturadelosatributosid
+    [Migration("20241122032050_sintaxis")]
+    partial class sintaxis
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -84,6 +84,9 @@ namespace AMorfar_MVC.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PedidoId"));
 
+                    b.Property<bool>("Activo")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
 
@@ -132,7 +135,7 @@ namespace AMorfar_MVC.Migrations
                     b.HasOne("AMorfar_MVC.Models.Pedido", "Pedido")
                         .WithMany("Comandas")
                         .HasForeignKey("PedidoActual")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Pedido");
@@ -162,7 +165,7 @@ namespace AMorfar_MVC.Migrations
                     b.HasOne("AMorfar_MVC.Models.Pedido", "Pedido")
                         .WithMany("Personas")
                         .HasForeignKey("PedidoActual")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Pedido");

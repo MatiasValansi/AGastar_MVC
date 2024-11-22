@@ -13,7 +13,7 @@ namespace AMorfar_MVC.Contexts
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // Reemplazar Data Soruce = NOMBRE_PC por . (un punto) o el nombre de mi PC.
-            optionsBuilder.UseSqlServer("Data Source = DESKTOP-N2PQ7KR\\SQLEXPRESS; Initial Catalog = AMorfar;" +
+            optionsBuilder.UseSqlServer("Data Source = DESKTOP-BSH8LIC; Initial Catalog = AMorfar;" +
                 " Encrypt=true;" +
                 " TrustServerCertificate = true; Integrated Security = true");
             base.OnConfiguring(optionsBuilder);
@@ -21,22 +21,23 @@ namespace AMorfar_MVC.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //Fluent API
-            //Relaciones del UML;
-            modelBuilder.Entity<Comanda>()   //La Comanda tiene:            
-                .HasOne(comanda => comanda.Pedido) //Se especifica con cual otra clase (o Entidad) tiene relación la clase Comanda.
-                .WithMany(pedido => pedido.Comandas) //La cardinalidad del UML entre Comanda y Pedido: en el UML se ve que Pedidos tiene de una a muchas (1...n) Comandas
-                .HasForeignKey(comanda => comanda.PedidoActual)
-                .OnDelete(DeleteBehavior.NoAction); //La Clave Foranea: es un atributo 
 
             modelBuilder.Entity<ComandasPersonas>()
                 .HasKey(cp => new { cp.IdPersona, cp.IdComanda });
 
-            modelBuilder.Entity<Persona>()
-                .HasOne(persona => persona.Pedido)
-                .WithMany(pedido => pedido.Personas)
+            modelBuilder.Entity<Pedido>()
+                .HasMany<Persona>(pedido => pedido.Personas)
+                .WithOne(persona => persona.Pedido)
                 .HasForeignKey(persona => persona.PedidoActual)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Pedido>()
+                .HasMany<Comanda>(pedido => pedido.Comandas)
+                .WithOne(comanda => comanda.Pedido)
+                .HasForeignKey(comanda => comanda.PedidoActual)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
         }
 
     }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AMorfar_MVC.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20241120005637_Se quita el cascade action")]
-    partial class Sequitaelcascadeaction
+    [Migration("20241122035131_cascade")]
+    partial class cascade
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,16 +27,26 @@ namespace AMorfar_MVC.Migrations
 
             modelBuilder.Entity("AMorfar_MVC.Models.Comanda", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ComandaId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ComandaId"));
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PedidoActual")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.Property<double>("Total")
+                        .HasColumnType("float");
+
+                    b.Property<double>("TotalPorPersona")
+                        .HasColumnType("float");
+
+                    b.HasKey("ComandaId");
 
                     b.HasIndex("PedidoActual");
 
@@ -68,11 +78,14 @@ namespace AMorfar_MVC.Migrations
 
             modelBuilder.Entity("AMorfar_MVC.Models.Pedido", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("PedidoId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PedidoId"));
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
@@ -87,18 +100,18 @@ namespace AMorfar_MVC.Migrations
                     b.Property<double>("Total")
                         .HasColumnType("float");
 
-                    b.HasKey("Id");
+                    b.HasKey("PedidoId");
 
                     b.ToTable("Pedidos");
                 });
 
             modelBuilder.Entity("AMorfar_MVC.Models.Persona", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("PersonaId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PersonaId"));
 
                     b.Property<string>("Nombre")
                         .HasMaxLength(50)
@@ -107,7 +120,10 @@ namespace AMorfar_MVC.Migrations
                     b.Property<int>("PedidoActual")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.Property<double>("Saldo")
+                        .HasColumnType("float");
+
+                    b.HasKey("PersonaId");
 
                     b.HasIndex("PedidoActual");
 
@@ -119,7 +135,7 @@ namespace AMorfar_MVC.Migrations
                     b.HasOne("AMorfar_MVC.Models.Pedido", "Pedido")
                         .WithMany("Comandas")
                         .HasForeignKey("PedidoActual")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Pedido");
@@ -149,7 +165,7 @@ namespace AMorfar_MVC.Migrations
                     b.HasOne("AMorfar_MVC.Models.Pedido", "Pedido")
                         .WithMany("Personas")
                         .HasForeignKey("PedidoActual")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Pedido");

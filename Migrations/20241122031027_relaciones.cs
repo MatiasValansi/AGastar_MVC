@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AMorfar_MVC.Migrations
 {
     /// <inheritdoc />
-    public partial class Sequitaelcascadeaction : Migration
+    public partial class relaciones : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,7 +15,7 @@ namespace AMorfar_MVC.Migrations
                 name: "Pedidos",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    PedidoId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Titulo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Total = table.Column<double>(type: "float", nullable: false),
@@ -24,44 +24,50 @@ namespace AMorfar_MVC.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Pedidos", x => x.Id);
+                    table.PrimaryKey("PK_Pedidos", x => x.PedidoId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Comandas",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    ComandaId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Total = table.Column<double>(type: "float", nullable: false),
+                    TotalPorPersona = table.Column<double>(type: "float", nullable: false),
                     PedidoActual = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Comandas", x => x.Id);
+                    table.PrimaryKey("PK_Comandas", x => x.ComandaId);
                     table.ForeignKey(
                         name: "FK_Comandas_Pedidos_PedidoActual",
                         column: x => x.PedidoActual,
                         principalTable: "Pedidos",
-                        principalColumn: "Id");
+                        principalColumn: "PedidoId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Personas",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    PersonaId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Saldo = table.Column<double>(type: "float", nullable: false),
                     PedidoActual = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Personas", x => x.Id);
+                    table.PrimaryKey("PK_Personas", x => x.PersonaId);
                     table.ForeignKey(
                         name: "FK_Personas_Pedidos_PedidoActual",
                         column: x => x.PedidoActual,
                         principalTable: "Pedidos",
-                        principalColumn: "Id");
+                        principalColumn: "PedidoId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -80,13 +86,13 @@ namespace AMorfar_MVC.Migrations
                         name: "FK_ComandasPersonas_Comandas_ComandaId",
                         column: x => x.ComandaId,
                         principalTable: "Comandas",
-                        principalColumn: "Id",
+                        principalColumn: "ComandaId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ComandasPersonas_Personas_PersonaId",
                         column: x => x.PersonaId,
                         principalTable: "Personas",
-                        principalColumn: "Id",
+                        principalColumn: "PersonaId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
