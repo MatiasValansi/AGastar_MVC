@@ -1,5 +1,33 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Detalle del pedido";
+    Pedido pedido = ViewBag.pedido;
 }
+
+<section class="container my-5">
+
+    <section class="container col-8">
+        <h1 class="text-center mb-4">Pedido "@pedido.Titulo"</h1>
+    </section>
+    <section>
+        <div class="text-center">
+            <button class="fondoSecundario colorSecundario" asp-controller="Comanda">Comanda</button>
+            <button class="fondoSecundario colorSecundario" asp-controller="Saldo">Saldo</button>
+        </div>
+
+        <div class="text-end mb-4">
+            <p class="colorPrimario">Total: $ @pedido.Total.ToString()</p>
+        </div>
+    </section>
+
+    <section class="container col-8">
+        @{
+            if (pedido.Personas != null && pedido.Personas.Count > 0)
+            {
+                @foreach(Persona p in pedido.Personas)
+                {
+                    
+                }
+            }
+        }
+    </section>
+</section>
