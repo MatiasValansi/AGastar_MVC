@@ -1,6 +1,9 @@
-﻿using AMorfar_MVC.Models;
+﻿
+using AMorfar_MVC.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System.Diagnostics;
+using System.Security.Authentication;
 
 namespace AMorfar_MVC.Contexts
 {
@@ -12,11 +15,15 @@ namespace AMorfar_MVC.Contexts
         public DbSet<ComandasPersonas> ComandasPersonas { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            // Reemplazar Data Soruce = NOMBRE_PC por . (un punto) o el nombre de mi PC.
-            optionsBuilder.UseSqlServer("Data Source = DESKTOP-BSH8LIC; Initial Catalog = AMorfar;" +
-                " Encrypt=true;" +
-                " TrustServerCertificate = true; Integrated Security = true");
-            base.OnConfiguring(optionsBuilder);
+
+                DotNetEnv.Env.Load();
+                string? serverName = Environment.GetEnvironmentVariable("SQLSERVER_NAME");
+
+                optionsBuilder.UseSqlServer($"Data Source = {serverName}; Initial Catalog = AMorfar;" +
+                    " Encrypt=true;" +
+                    " TrustServerCertificate = true; Integrated Security = true");
+                base.OnConfiguring(optionsBuilder);
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
