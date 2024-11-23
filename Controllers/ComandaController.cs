@@ -65,9 +65,9 @@ namespace AMorfar_MVC.Controllers
                 context.Comandas.Add(comanda);
                 context.SaveChanges();
 
-                foreach (var personaId in PersonasSeleccionadas)
+                foreach (int personaId in PersonasSeleccionadas)
                 {
-                    var comandaPersona = new ComandasPersonas
+                    ComandasPersonas comandaPersona = new ComandasPersonas
                     {
                         IdComanda = comanda.ComandaId,
                         IdPersona = personaId,
