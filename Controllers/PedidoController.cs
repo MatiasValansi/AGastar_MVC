@@ -1,5 +1,4 @@
 ﻿using AMorfar_MVC.Contexts;
-using AMorfar_MVC.Helpers;
 using AMorfar_MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +12,17 @@ namespace AMorfar_MVC.Controllers
         readonly Context context = new();
         public IActionResult Index()
         {
-            ViewBag.pedidos = context.Pedidos.Where(p=>p.Activo).OrderByDescending(p=>p.PedidoId).ToList();
+            List<Pedido>? pedidos = null;
+            try
+            {
+                pedidos = context.Pedidos.OrderByDescending(p => p.PedidoId).ToList();
+            }
+            catch (Exception ex)
+            {
+                ViewBag.error = ex.Message;
+            }
+
+            ViewBag.pedidos = pedidos;
             return View();
         }
 

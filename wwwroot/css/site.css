@@ -115,3 +115,21 @@ nav{
     margin: 16px 0px;
     border-radius: 16px;
 }
+
+.botonesNav{
+    border: 2px solid transparent;
+    outline: none;
+    padding: .6rem 2rem;
+    border-radius: 16px;
+    cursor: pointer;
+}
+
+.botonesNav:hover{
+    border: 2px solid var(--color-primario);
+    text-decoration: none;
+    color
+}
+
+.botonNavActivo {
+    border: 2px solid var(--color-primario);
+}

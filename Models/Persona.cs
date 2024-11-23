@@ -14,10 +14,10 @@ namespace AMorfar_MVC.Models
         public double Saldo { get; set; }
 
         // Relaciones
+        public Pedido? Pedido { get; set; }
 
         public int PedidoActual { get; set; }
         
-        public Pedido? Pedido { get; set; }
         public List<ComandasPersonas>? ComandasPersonas { get; set; }
         //public List<Comanda>? Comandas { get; set; }
 

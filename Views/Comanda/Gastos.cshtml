@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Detalle del pedido";
+    Pedido pedido = ViewBag.pedido;
+
+    Comanda a = new() { Descripcion = "test 1", Total = 50 };
+    Comanda b = new() { Descripcion = "test 2", Total = 50 };
+    Comanda c = new() { Descripcion = "test 2", Total = 50 };
+
+    List<Comanda> comandas = new() { a, b, c };
+
+}
+
+<section class="container my-5">
+
+    <section class="container col-8">
+        <h1 class="text-center mb-4">Pedido "@pedido.Titulo"</h1>
+    </section>
+    <section class="d-flex flex-column gap-5">
+        <div class="text-center col-8 d-flex justify-content-center m-auto gap-5">
+            <a class="fondoSecundario colorSecundario botonesNav" asp-controller="Pedido" asp-action="Detalles" asp-route-id="@pedido.PedidoId">Detalles</a>
+            <a class="fondoSecundario colorSecundario botonesNav botonNavActivo">Gastos</a>
+        </div>
+
+        <section class="container col-6 d-flex flex-column">
+            <div class="d-flex justify-content-between">
+                <h5>Gastos: </h5>
+                <a asp-controller="Comanda">
+                    <i class="bi bi-plus-circle colorPrimario btn-lg"></i>
+                </a>
+            </div>
+            <div class="container col-12">
+                @{
+                    if (comandas != null && comandas.Count > 0)
+                    {
+                        @foreach (Comanda comanda in comandas)
+                        {
+                            <div class="itemPedido fondoSecundario colorSecundario">
+                                <h4 class="text-align-left">@comanda.Descripcion</h4>
+                                <p>$ @comanda.Total</p>
+                            </div>
+                        }
+                    }
+                }
+            </div>
+
+        </section>
+    </section>
+</section>
