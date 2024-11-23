@@ -1,0 +1,57 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="container my-5">
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger">
+            <strong>Ooops</strong> algo salió mal. @ViewBag.Error .
+        </div>
+    }
+    <h1 class="text-center mb-4">Agregar gasto</h1>
+    <div class="row justify-content-center">
+        <div class="card fondoPrimario colorSecundario border-0">
+            <div class="card-body fondoPrimario">
+                <form id="comandaForm" method="post" enctype="multipart/form-data" asp-controller="Comanda" asp-action="Crear">
+                    <div class="mb-3">
+                        <label for="Descripcion" class="form-label">Descripción</label>
+                        <input type="text" class="form-control" id="Descripcion" name="Descripcion" placeholder="Pizza 🍕" required>
+                    </div>
+
+                    <div class="mb-3 col-6 m-auto">
+                        <label for="Total" class="form-label">Total</label>
+                        <span class="d-flex align-items-center gap-2">
+                            <input type="number" class="form-control" id="Total" name="Total" placeholder="$">
+                        </span>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label for="Persona" class="form-label">Persona</label>
+                        <select class="form-select" id="Persona" name="PersonasSeleccionadas" multiple>
+                            @foreach (Persona persona in ViewBag.Personas)
+                            {
+                                <option id="@persona.PersonaId" value="@persona.PersonaId">@persona.Nombre</option>
+                            }
+                        </select>
+                    </div>
+
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="bi bi-save me-2"></i>Guardar
+                        </button>
+                        <button type="reset" class="btn btn-outline-secondary">Cancelar</button>
+                    </div>
+
+                    <input type="hidden" name="PedidoId" value="@ViewBag.idPedido" />
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

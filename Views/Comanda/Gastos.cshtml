@@ -1,13 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Detalle del pedido";
     Pedido pedido = ViewBag.pedido;
-
-    Comanda a = new() { Descripcion = "test 1", Total = 50 };
-    Comanda b = new() { Descripcion = "test 2", Total = 50 };
-    Comanda c = new() { Descripcion = "test 2", Total = 50 };
-
-    List<Comanda> comandas = new() { a, b, c };
-
+    List<Comanda> comandas = ViewBag.comandas;
 }
 
 <section class="container my-5">
@@ -24,7 +18,7 @@
         <section class="container col-6 d-flex flex-column">
             <div class="d-flex justify-content-between">
                 <h5>Gastos: </h5>
-                <a asp-controller="Comanda">
+                <a asp-controller="Comanda" asp-action="Crear" asp-route-idPedido="@pedido.PedidoId">
                     <i class="bi bi-plus-circle colorPrimario btn-lg"></i>
                 </a>
             </div>

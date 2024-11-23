@@ -9,7 +9,7 @@ namespace AMorfar_MVC.Contexts
         public DbSet<Pedido> Pedidos { get; set; }
         public DbSet<Comanda> Comandas { get; set; }
         public DbSet<Persona> Personas { get; set; }
-
+        public DbSet<ComandasPersonas> ComandasPersonas { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // Reemplazar Data Soruce = NOMBRE_PC por . (un punto) o el nombre de mi PC.
@@ -29,6 +29,25 @@ namespace AMorfar_MVC.Contexts
 
             modelBuilder.Entity<ComandasPersonas>()
                 .HasKey(cp => new { cp.IdPersona, cp.IdComanda });
+
+            modelBuilder.Entity<Persona>()
+                .HasMany(p => p.Comandas)
+                .WithMany(c => c.Personas)
+                .UsingEntity<ComandasPersonas>(
+                    j => j
+                        .HasOne(cp => cp.Comanda)
+                        .WithMany(c => c.ComandasPersonas)
+                        .HasForeignKey(cp => cp.IdComanda),
+                    j => j
+                        .HasOne(cp => cp.Persona)
+                        .WithMany(p => p.ComandasPersonas)
+                        .HasForeignKey(cp => cp.IdPersona));
+
+                    //j =>
+                    //{
+                    //    j.HasKey(t => new { t.IdPersona, t.IdComanda });
+                    //    j.OnDelete(DeleteBehavior.Cascade);
+                    //});
 
         }
 
