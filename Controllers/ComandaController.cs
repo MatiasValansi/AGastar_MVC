@@ -60,6 +60,14 @@ namespace AMorfar_MVC.Controllers
         [HttpPost]
         public IActionResult Crear(Comanda comanda, int[] PersonasSeleccionadas, int PedidoId)
         {
+            double saldoAActualizar = 0;
+
+            //Verificamos que la cantidad de PersonasSeleccionadas sea mayor a 0.
+            if (PersonasSeleccionadas.Length > 0)
+            {
+                saldoAActualizar = comanda.Total / PersonasSeleccionadas.Length;
+            }        
+
             try
             {
                 context.Comandas.Add(comanda);
@@ -67,12 +75,18 @@ namespace AMorfar_MVC.Controllers
 
                 foreach (int personaId in PersonasSeleccionadas)
                 {
+                    //Actualizamos el saldo de cada persona a través de su ID.
+
+                    Persona? iteradorPersona = context.Personas.Find(personaId);
+                    iteradorPersona.Saldo += saldoAActualizar;
+
                     ComandasPersonas comandaPersona = new ComandasPersonas
                     {
                         IdComanda = comanda.ComandaId,
                         IdPersona = personaId,
                     };
                     context.ComandasPersonas.Add(comandaPersona);
+
                 }
                 context.SaveChanges();
 
@@ -87,6 +101,26 @@ namespace AMorfar_MVC.Controllers
             }
 
             return RedirectToAction("Index", new { id = PedidoId });
+        }
+
+        public IActionResult RetornaComandaPorId(int idComanda)
+        {
+            try
+            {
+                Comanda? comanda = context.Comandas.Find(idComanda);
+
+                ViewBag.comanda = comanda;
+                //Añadimos a la ViewBag una lista de personas. De no ser necesario, lo eliminamos.
+                ViewBag.personas = comanda.Personas;
+            }
+            catch (Exception ex) {
+                ViewBag.error = ex.Message;
+            }
+
+            
+            
+
+            return View();
         }
 
     }
