@@ -16,7 +16,7 @@ namespace AMorfar_MVC.Contexts
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
-                DotNetEnv.Env.Load();
+                DotNetEnv.Env.Load();//Paquete de .DotNET para leer variables de entorno. Por lo tanto, automatiza la configuración del String de Conexión en distitnos entornos para que automaticamente se asgine el nombre de la PC.
                 string? serverName = Environment.GetEnvironmentVariable("SQLSERVER_NAME");
 
                 optionsBuilder.UseSqlServer($"Data Source = {serverName}; Initial Catalog = AMorfar;" +
