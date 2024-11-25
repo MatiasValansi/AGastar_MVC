@@ -1,9 +1,7 @@
 ﻿
 using AMorfar_MVC.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using System.Diagnostics;
-using System.Security.Authentication;
+using DotNetEnv;
 
 namespace AMorfar_MVC.Contexts
 {
@@ -16,7 +14,7 @@ namespace AMorfar_MVC.Contexts
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
-                DotNetEnv.Env.Load();//Paquete de .DotNET para leer variables de entorno. Por lo tanto, automatiza la configuración del String de Conexión en distitnos entornos para que automaticamente se asgine el nombre de la PC.
+                Env.Load();//Paquete de .DotNET para leer variables de entorno. Por lo tanto, automatiza la configuración del String de Conexión en distitnos entornos para que automaticamente se asgine el nombre de la PC.
                 string? serverName = Environment.GetEnvironmentVariable("SQLSERVER_NAME");
 
                 optionsBuilder.UseSqlServer($"Data Source = {serverName}; Initial Catalog = AMorfar;" +
