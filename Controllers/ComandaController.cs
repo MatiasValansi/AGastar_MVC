@@ -79,6 +79,7 @@ namespace AMorfar_MVC.Controllers
 
                     Persona? iteradorPersona = context.Personas.Find(personaId);
                     iteradorPersona.Saldo += saldoAActualizar;
+                    context.Personas.Update(iteradorPersona);
 
                     ComandasPersonas comandaPersona = new ComandasPersonas
                     {
