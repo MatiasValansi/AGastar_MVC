@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Detalle del pedido";
     Pedido pedido = ViewBag.pedido;
+    List<Persona> personas = ViewBag.personas;
 }
 
 <section class="container my-5">
@@ -14,20 +15,26 @@
             <a class="fondoSecundario colorSecundario botonesNav" asp-controller="Comanda" asp-action="Index" asp-route-id="@pedido.PedidoId">Gastos</a>
         </div>
 
-        <div class="text-end mb-4">
-            <p class="colorPrimario">Total: $ @pedido.Total.ToString()</p>
-        </div>
-    </section>
+        <section class="container col-6 d-flex flex-column">
+            <div class="container d-flex justify-content-between">
+                <h5>Total: $ @pedido.Total.ToString()</h5>
+            </div>
+            <div class="container col-12">
 
-    <section class="container col-8">
-        @{
-            // if (pedido.Comandas != null && pedido.Comandas.Count > 0)
-            // {
-            //     @foreach (Comanda c in pedido.Comandas)
-            //     {
-                    
-            //     }
-            // }
-        }
+                @{
+                    if (personas != null && personas.Count > 0)
+                    {
+                        @foreach (Persona p in personas)
+                        {
+                            <div class="itemPedido fondoSecundario colorSecundario">
+                                <h4 class="text-align-left">@p.Nombre</h4>
+                                <p>$ @p.Saldo</p>
+                             </div>
+                        }
+                    }
+                }
+
+            </div>
+        </section>
     </section>
 </section>
