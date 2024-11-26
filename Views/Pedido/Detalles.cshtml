@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Detalle del pedido";
     Pedido pedido = ViewBag.pedido;
-    List<Persona> personas = ViewBag.personas;
+    List<Persona> personas = pedido.Personas;
 }
 
 <section class="container my-5">
@@ -16,7 +16,7 @@
         </div>
 
         <section class="container col-6 d-flex flex-column">
-            <div class="container d-flex justify-content-between">
+            <div class="container d-flex justify-content-end">
                 <h5>Total: $ @pedido.Total.ToString()</h5>
             </div>
             <div class="container col-12">

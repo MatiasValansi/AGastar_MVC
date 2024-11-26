@@ -126,7 +126,6 @@ namespace AMorfar_MVC.Controllers
         public IActionResult Detalles(int id)
         {
             Pedido? pedido = null;
-            List<Persona> conSaldo = new List<Persona>();
 
             try
             {
@@ -134,14 +133,6 @@ namespace AMorfar_MVC.Controllers
                     .Where(p => p.PedidoId == id)
                     .Include(p => p.Personas) // Incluir las Personas relacionadas
                     .FirstOrDefault();
-
-                foreach (Persona p in pedido.Personas)
-                {
-                    if (p.Saldo >= 0)
-                    {
-                        conSaldo.Add(p);
-                    }
-                }
             }
 
             catch (Exception ex)
@@ -151,7 +142,6 @@ namespace AMorfar_MVC.Controllers
 
 
             ViewBag.pedido = pedido;
-            ViewBag.personas = conSaldo;
 
             return View("Detalles");
         }
