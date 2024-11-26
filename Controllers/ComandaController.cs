@@ -115,7 +115,7 @@ namespace AMorfar_MVC.Controllers
                 var personas = context.Comandas
                     .Join(context.ComandasPersonas, c => c.ComandaId, cp => cp.IdPersona, (co, cp) => new { Comanda = co, ComandaPersona = cp })
                     .Join(context.Personas, cp => cp.ComandaPersona.IdComanda, p => p.PersonaId, (cp, p) => new { PersonaComanda = cp, Persona = p })
-                    .Where(cp => cp.PersonaComanda.Comanda.ComandaId == idComanda)
+                    .Where(cp => cp.PersonaComanda.Comanda.ComandaId == comandaId)
                     //.GroupBy(cp => cp.Persona) // Agrupar por persona
                     .Select(group => group.Persona) // Seleccionar la clave de cada grupo (comanda)
                     .ToList();
