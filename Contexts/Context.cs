@@ -32,28 +32,21 @@ namespace AMorfar_MVC.Contexts
                 .HasForeignKey(p=>p.PedidoActual)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<ComandasPersonas>()
+            modelBuilder.Entity<ComandasPersonas>() // Se especifica que la tabla intermedia es ComandasPersonas
                 .HasKey(cp => new { cp.IdPersona, cp.IdComanda });
 
             modelBuilder.Entity<Persona>()
                 .HasMany(p => p.Comandas)
                 .WithMany(c => c.Personas)
-                .UsingEntity<ComandasPersonas>(
+                .UsingEntity<ComandasPersonas>( // Se especifica que la tabla intermedia ES ComandasPersonas
                     j => j
-                        .HasOne(cp => cp.Comanda)
-                        .WithMany(c => c.ComandasPersonas)
-                        .HasForeignKey(cp => cp.IdComanda),
+                        .HasOne(cp => cp.Comanda) // Se especifica la relación con Comanda
+                        .WithMany(c => c.ComandasPersonas) // Se especifica la relación con ComandasPersonas
+                        .HasForeignKey(cp => cp.IdComanda), 
                     j => j
-                        .HasOne(cp => cp.Persona)
-                        .WithMany(p => p.ComandasPersonas)
+                        .HasOne(cp => cp.Persona) // Se especifica la relación con Persona
+                        .WithMany(p => p.ComandasPersonas) // Se especifica la relación con ComandasPersonas
                         .HasForeignKey(cp => cp.IdPersona));
-
-                    //j =>
-                    //{
-                    //    j.HasKey(t => new { t.IdPersona, t.IdComanda });
-                    //    j.OnDelete(DeleteBehavior.Cascade);
-                    //});
-
         }
 
     }
