@@ -112,19 +112,22 @@ namespace AMorfar_MVC.Controllers
                 Comanda? comanda = context.Comandas.Find(comandaId);
                 ViewBag.comanda = comanda;
 
-                //Añadimos a la ViewBag una lista de personas. De no ser necesario, lo eliminamos.
-                var personas = context.Personas
-                    .Join(context.ComandasPersonas, p => p.PersonaId, cp => cp.IdPersona, (p, cp) => new { Persona = p, ComandaPersona = cp })
-                    .Where(cp => cp.ComandaPersona.IdComanda == comandaId) // Filtrar por idComanda
-                    .Select(cp => cp.Persona) // Seleccionar las personas
+                var personas = context.Comandas
+                    .Join(context.ComandasPersonas, c => c.ComandaId, cp => cp.IdPersona, (co, cp) => new { Comanda = co, ComandaPersona = cp })
+                    .Join(context.Personas, cp => cp.ComandaPersona.IdComanda, p => p.PersonaId, (cp, p) => new { PersonaComanda = cp, Persona = p })
+                    .Where(cp => cp.PersonaComanda.Comanda.ComandaId == idComanda)
+                    //.GroupBy(cp => cp.Persona) // Agrupar por persona
+                    .Select(group => group.Persona) // Seleccionar la clave de cada grupo (comanda)
                     .ToList();
+
                 // Lista de personas incluidas en el producto de la comanda.
                 ViewBag.personas = personas;
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 ViewBag.error = ex.Message;
-            }     
-            
+            }
+
 
             return View();
         }
