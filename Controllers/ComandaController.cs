@@ -104,17 +104,18 @@ namespace AMorfar_MVC.Controllers
             return RedirectToAction("Index", new { id = PedidoId });
         }
 
-        public IActionResult Detalle(int idComanda)
+        public IActionResult Detalle(int comandaId, int pedidoId)
         {
+            ViewBag.pedidoId = pedidoId;
             try
             {
-                Comanda? comanda = context.Comandas.Find(idComanda);
+                Comanda? comanda = context.Comandas.Find(comandaId);
                 ViewBag.comanda = comanda;
 
                 //Añadimos a la ViewBag una lista de personas. De no ser necesario, lo eliminamos.
                 var personas = context.Personas
                     .Join(context.ComandasPersonas, p => p.PersonaId, cp => cp.IdPersona, (p, cp) => new { Persona = p, ComandaPersona = cp })
-                    .Where(cp => cp.ComandaPersona.IdComanda == idComanda) // Filtrar por idComanda
+                    .Where(cp => cp.ComandaPersona.IdComanda == comandaId) // Filtrar por idComanda
                     .Select(cp => cp.Persona) // Seleccionar las personas
                     .ToList();
                 // Lista de personas incluidas en el producto de la comanda.
