@@ -66,6 +66,7 @@ namespace AMorfar_MVC.Controllers
             if (PersonasSeleccionadas.Length > 0)
             {
                 saldoAActualizar = comanda.Total / PersonasSeleccionadas.Length;
+                comanda.TotalPorPersona = saldoAActualizar;
             }        
 
             try
@@ -113,11 +114,10 @@ namespace AMorfar_MVC.Controllers
                 ViewBag.comanda = comanda;
 
                 var personas = context.Comandas
-                    .Join(context.ComandasPersonas, c => c.ComandaId, cp => cp.IdPersona, (co, cp) => new { Comanda = co, ComandaPersona = cp })
-                    .Join(context.Personas, cp => cp.ComandaPersona.IdComanda, p => p.PersonaId, (cp, p) => new { PersonaComanda = cp, Persona = p })
+                    .Join(context.ComandasPersonas, c => c.ComandaId, cp => cp.IdComanda, (c, cp) => new { Comanda = c, ComandaPersona = cp })
+                    .Join(context.Personas, cp => cp.ComandaPersona.IdPersona, p => p.PersonaId, (cp, p) => new { PersonaComanda = cp, Persona = p })
                     .Where(cp => cp.PersonaComanda.Comanda.ComandaId == comandaId)
-                    //.GroupBy(cp => cp.Persona) // Agrupar por persona
-                    .Select(group => group.Persona) // Seleccionar la clave de cada grupo (comanda)
+                    .Select(cp => cp.Persona)
                     .ToList();
 
                 // Lista de personas incluidas en el producto de la comanda.
