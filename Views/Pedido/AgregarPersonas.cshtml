@@ -14,12 +14,12 @@
     <div class="row justify-content-center">
         <div class="card shadow-sm">
             <div class="card-body">
-                <form id="pedidoForm" method="post" enctype="multipart/form-data" asp-controller="Pedido" asp-action="Crear" class="d-flex flex-column gap-4">
+                <form id="pedidoForm" method="post" enctype="multipart/form-data" asp-controller="Pedido" class="d-flex flex-column gap-4">
                     <div class="mb-3">
                         <label for="Nombre" class="form-label">Nombre</label>
                         <div class="d-flex">
                             <input type="text" class="form-control" id="Nombre" name="Nombre" placeholder="Pepe..." required>
-                            <button type="submit" class="btn btn-success btn-md" asp-controller="Pedido" asp-action="AgregarPersonas">
+                            <button type="submit" class="btn btn-success btn-md" asp-action="AgregarPersonas">
                                 <i class="bi bi-plus-lg"></i>
                             </button>
                         </div>
@@ -33,17 +33,17 @@
                                 {
                                     <div class="d-flex justify-content-between align-items-center" style="border: 1px solid rgba(0,0,0,.100)">
                                         <span class="p-1">@cadaPersona.Nombre</span>
-                                        <button id="eliminar" class="btn btn-md btn-outline-danger" title="Eliminar" asp-controller="Pedido" asp-action="EliminarPersona">
+                                        <button type="submit" id="eliminar" class="btn btn-md btn-outline-danger" title="Eliminar" asp-action="EliminarPersona">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     </div>
-                                }                                
+                                }
                             }
                         }
                     </div>
 
                     <div class="align-self-end">
-                        <a asp-controller="Pedido" asp-action="Detalles" asp-route-id="@ViewBag.pedido.PedidoId" class="btn btn-success">Finalizar</a>
+                        <a  asp-action="Detalles" asp-route-id="@ViewBag.pedido.PedidoId" class="btn btn-success">Finalizar</a>
                     </div>
 
                     <input type="hidden" name="PedidoId" value="@ViewBag.pedido.PedidoId" />

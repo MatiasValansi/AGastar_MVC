@@ -85,13 +85,14 @@ namespace AMorfar_MVC.Controllers
 
             return RedirectToAction("AgregarPersonas", pedido);
         }
-
+        [HttpPost]
         public IActionResult EliminarPersona(Persona p, Pedido pedido)
         {
-            Persona persona = context.Personas.Find(p.PersonaId);
+            Persona? persona = null;
             string error = "";
             try
             {
+                persona = context.Personas.Find(p.PersonaId);
                 context.Remove(persona);
                 context.SaveChanges();
             }

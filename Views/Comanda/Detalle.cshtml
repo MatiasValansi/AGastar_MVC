@@ -1,5 +1,41 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Detalle del gasto";
+    Comanda comanda = ViewBag.comanda;
 }
+
+<section class="container my-5">
+
+    <section class="container col-8 d-flex align-items-center gap-5 mb-4">
+        <a class="colorSecundario" asp-controller="Comanda" asp-action="Index" asp-route-id="@ViewBag.pedidoId">
+            <i class="bi bi-arrow-left-circle colorPrimario" style="font-size: 32px;"></i>
+        </a>        
+        <h1 class="text-center">Gasto: "@comanda.Descripcion"</h1>
+    </section>
+    <section class="d-flex flex-column gap-5">
+        <div class="container col-6 d-flex flex-column">
+            <div class="d-flex justify-content-end">
+                @* TODO: mostrar total de la comanda*@
+                <h4>Total: $ @comanda.Total</h4>
+            </div>
+            <div class="container col-12">
+                <h4>Persronas: </h4>
+                @* 
+                    TODO: iterar a las personas. Mostrar el nombre y el "importe por persona" de la comanda
+                *@
+               @*  @{
+                    if (personas != null && personas.Count > 0)
+                    {
+                        @foreach (Persona p in personas)
+                        {
+                            <div class="itemPedido fondoSecundario colorSecundario">
+                                <h4 class="text-align-left">@p.Nombre</h4>
+                                <p>$ @p.Saldo</p>
+                            </div>
+                        }
+                    }
+                } *@
+            </div>
+
+        </div>
+    </section>
+</section>

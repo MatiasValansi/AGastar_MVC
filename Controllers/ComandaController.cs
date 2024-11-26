@@ -66,6 +66,7 @@ namespace AMorfar_MVC.Controllers
             if (PersonasSeleccionadas.Length > 0)
             {
                 saldoAActualizar = comanda.Total / PersonasSeleccionadas.Length;
+                comanda.TotalPorPersona = saldoAActualizar;
             }        
 
             try
@@ -104,15 +105,16 @@ namespace AMorfar_MVC.Controllers
             return RedirectToAction("Index", new { id = PedidoId });
         }
 
-        public IActionResult RetornaComandaPorId(int idComanda)
+        public IActionResult Detalle(int comandaId, int pedidoId)
         {
+            ViewBag.pedidoId = pedidoId;
             try
             {
-                Comanda? comanda = context.Comandas.Find(idComanda);
+                Comanda? comanda = context.Comandas.Find(comandaId);
 
                 ViewBag.comanda = comanda;
                 //Añadimos a la ViewBag una lista de personas. De no ser necesario, lo eliminamos.
-                ViewBag.personas = comanda.Personas;
+                //ViewBag.personas = comanda.Personas;
             }
             catch (Exception ex) {
                 ViewBag.error = ex.Message;
