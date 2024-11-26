@@ -23,19 +23,33 @@
                     @{
                          double propina = Math.Round((pedido.Propina * pedido.Total) / 100, 2);
                     }
-                <h6>Propina: $@propina.ToString()</h6>
+                <h6>Propina: $@propina.ToString() (@pedido.Propina %)</h6>
             </div>
             <div class="container col-12">
 
                 @{
                     if (personas != null && personas.Count > 0)
                     {
-                        @foreach (Persona p in personas)
+                        @foreach (Persona cadaPersona in personas)
                         {
+                           
+                            double propinarPorPers = Math.Round((pedido.Propina * cadaPersona.Saldo / 100), 2);
+                            
+                            // <div class="itemPedido fondoSecundario colorSecundario">
+                            //     <h4 class="text-align-left">@cadaPersona.Nombre</h4>
+                            //     <p>$ @cadaPersona.Saldo</p>
+                            //     <p text-align: center;>$ @propinarPorPers</p>
+                            //  </div>
+
                             <div class="itemPedido fondoSecundario colorSecundario">
-                                <h4 class="text-align-left">@p.Nombre</h4>
-                                <p>$ @p.Saldo</p>
-                             </div>
+                                <h4 class="text-align-left">@cadaPersona.Nombre</h4>
+                                <div class="infoPersona">
+                                    <p class="monto">Saldo: &nbsp;&nbsp; $ @cadaPersona.Saldo</p>
+                                    <p class="monto">Propina: $ @propinarPorPers</p>
+                                </div>
+                            </div>
+
+
                         }
                     }
                 }
