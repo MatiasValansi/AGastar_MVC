@@ -30,7 +30,12 @@
                         {
                             <div class="itemPedido fondoSecundario colorSecundario">
                                 <h4 class="text-align-left">@comanda.Descripcion</h4>
-                                <p>$ @comanda.Total</p>
+                                <div class="d-flex justify-content-center align-items-center gap-2">
+                                    <p class="m-0">$ @comanda.Total</p>
+                                    <a class="btn btn-sm btn-outline-primary me-1" title="Ver detalles" asp-controller="Comanda" asp-action="Detalle" asp-route-comandaId="@comanda.ComandaId" asp-route-pedidoId="@pedido.PedidoId">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                </div>
                             </div>
                         }
                     }
