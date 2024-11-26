@@ -137,7 +137,7 @@ namespace AMorfar_MVC.Controllers
 
                 foreach (Persona p in pedido.Personas)
                 {
-                    if (p.Saldo > 0)
+                    if (p.Saldo >= 0)
                     {
                         conSaldo.Add(p);
                     }
