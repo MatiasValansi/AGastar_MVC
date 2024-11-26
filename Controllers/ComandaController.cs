@@ -66,6 +66,7 @@ namespace AMorfar_MVC.Controllers
             if (PersonasSeleccionadas.Length > 0)
             {
                 saldoAActualizar = comanda.Total / PersonasSeleccionadas.Length;
+                comanda.TotalPorPersona = saldoAActualizar;
             }        
 
             try
