@@ -19,6 +19,12 @@
             <div class="container d-flex justify-content-end">
                 <h5>Total: $ @pedido.Total.ToString()</h5>
             </div>
+            <div class="container d-flex justify-content-end">
+                    @{
+                         double propina = (100 * pedido.Propina) / pedido.Total;
+                    }
+                <h6>Propina: $@propina.ToString()</h6>
+            </div>
             <div class="container col-12">
 
                 @{
