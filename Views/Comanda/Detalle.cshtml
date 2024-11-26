@@ -1,5 +1,40 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Detalle de la comanda";
+    Comanda comanda = ViewBag.comanda;
+    List<Persona> personas = ViewBag.personas;
 }
+
+<section class="container my-5">
+
+    <section class="container col-8">
+        <h1 class="text-center mb-4">Comanda "@comanda.Descripcion"</h1>
+    </section>
+    <section>
+        <div class="text-center col-8 d-flex justify-content-center m-auto gap-5">
+            <a class="fondoSecundario colorSecundario botonesNav botonNavActivo">Detalles</a>
+            <a class="fondoSecundario colorSecundario botonesNav" asp-controller="Comanda" asp-action="Index" asp-route-id="@comanda.ComandaId">Gastos</a>
+        </div>
+
+        <section class="container col-6 d-flex flex-column">
+            <div class="container d-flex justify-content-between">
+                <h5>Total: $ @comanda.Total.ToString()</h5>
+            </div>
+            <div class="container col-12">
+
+                @{
+                    if (personas != null && personas.Count > 0)
+                    {
+                        @foreach (Persona p in personas)
+                        {
+                            <div class="itemPedido fondoSecundario colorSecundario">
+                                <h4 class="text-align-left">@p.Nombre</h4>
+                                <p>$ @comanda.TotalPorPersona</p>
+                            </div>
+                        }
+                    }
+                }
+
+            </div>
+        </section>
+    </section>
+</section>

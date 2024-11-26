@@ -104,21 +104,25 @@ namespace AMorfar_MVC.Controllers
             return RedirectToAction("Index", new { id = PedidoId });
         }
 
-        public IActionResult RetornaComandaPorId(int idComanda)
+        public IActionResult Detalle(int idComanda)
         {
             try
             {
                 Comanda? comanda = context.Comandas.Find(idComanda);
-
                 ViewBag.comanda = comanda;
+
                 //Añadimos a la ViewBag una lista de personas. De no ser necesario, lo eliminamos.
-                ViewBag.personas = comanda.Personas;
+                var personas = context.Personas
+                    .Join(context.ComandasPersonas, p => p.PersonaId, cp => cp.IdPersona, (p, cp) => new { Persona = p, ComandaPersona = cp })
+                    .Where(cp => cp.ComandaPersona.IdComanda == idComanda) // Filtrar por idComanda
+                    .Select(cp => cp.Persona) // Seleccionar las personas
+                    .ToList();
+                // Lista de personas incluidas en el producto de la comanda.
+                ViewBag.personas = personas;
             }
             catch (Exception ex) {
                 ViewBag.error = ex.Message;
-            }
-
-            
+            }     
             
 
             return View();
