@@ -12,8 +12,8 @@
     }
     <h1 class="text-center mb-4">Agrega a los participantes</h1>
     <div class="row justify-content-center">
-        <div class="card shadow-sm">
-            <div class="card-body">
+        <div class="card fondoPrimario colorSecundario border-0">
+            <div class="card-body d-flex flex-column gap-4">
                 <form id="pedidoForm" method="post" enctype="multipart/form-data" asp-controller="Pedido" class="d-flex flex-column gap-4">
                     <div class="mb-3">
                         <label for="Nombre" class="form-label">Nombre</label>
@@ -25,15 +25,20 @@
                         </div>
 
                     </div>
+
+                    <input type="hidden" name="PedidoId" value="@ViewBag.pedido.PedidoId" />
+                </form>
+
+                <form id="personasForm" method="post" enctype="multipart/form-data" asp-controller="Pedido" class="d-flex flex-column gap-4">
                     <div class="d-flex flex-column justify-content-start gap-2">
                         @{
                             if (personas != null && personas.Count > 0)
                             {
                                 foreach (Persona cadaPersona in personas)
                                 {
-                                    <div class="d-flex justify-content-between align-items-center" style="border: 1px solid rgba(0,0,0,.100)">
+                                    <div class="d-flex justify-content-between align-items-center fondoSecundario border-2" style="border: 1px solid rgba(0,0,0,.100)">
                                         <span class="p-1">@cadaPersona.Nombre</span>
-                                        <button type="submit" id="eliminar" class="btn btn-md btn-outline-danger" title="Eliminar" asp-action="EliminarPersona">
+                                        <button type="submit" id="eliminar" class="btn btn-md btn-outline-danger" title="Eliminar" asp-action="EliminarPersona" asp-route-personaId="@cadaPersona.PersonaId">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     </div>
@@ -41,13 +46,12 @@
                             }
                         }
                     </div>
-
-                    <div class="align-self-end">
-                        <a  asp-action="Detalles" asp-route-id="@ViewBag.pedido.PedidoId" class="btn btn-success">Finalizar</a>
-                    </div>
-
-                    <input type="hidden" name="PedidoId" value="@ViewBag.pedido.PedidoId" />
                 </form>
+
+
+                <div class="d-flex justify-content-center">
+                    <a asp-action="Detalles" asp-route-id="@ViewBag.pedido.PedidoId" class="btn btn-success">Finalizar</a>
+                </div>
             </div>
         </div>
     </div>

@@ -3,7 +3,14 @@
     List<Pedido> pedidos = ViewBag.pedidos;
 }
 <section class="container my-5">
-
+    @{
+        if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger">
+                <strong>Ooops</strong> algo salió mal. @ViewBag.Error .
+            </div>
+        }
+    }
     <section class="headerEspaciado col-8">
         <h2>Lista de Pedidos</h2>
 
@@ -33,6 +40,9 @@
                                 <button asp-action="Eliminar" asp-route-id="@cadaPedido.PedidoId" class="btn btn-sm btn-outline-danger" title="Eliminar" type="submit">
                                     <i class="bi bi-trash"></i>
                                 </button>
+                                <a class="btn btn-sm btn-outline-primary" title="Editar" asp-action="Editar" asp-route-id="@cadaPedido.PedidoId">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
                             </div>
                         </div>
                     }

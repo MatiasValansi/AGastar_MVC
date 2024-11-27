@@ -1,0 +1,45 @@
+﻿@model AMorfar_MVC.Models.Pedido
+
+@{
+    ViewData["Title"] = "Editar pedido";
+}
+
+<div class="container my-5">
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger">
+            <strong>Ooops</strong> algo salió mal. @ViewBag.Error .
+        </div>
+    }
+    <h1 class="text-center mb-4">Editar Pedido "@Model.Titulo"</h1>
+    <div class="row justify-content-center">
+        <div class="card fondoPrimario colorSecundario border-0">
+            <div class="card-body">
+                <form id="pedidoForm" method="post" enctype="multipart/form-data" asp-controller="Pedido" asp-action="Editar">
+                    <div class="mb-3">
+                        <label for="Titulo" class="form-label">Titulo</label>
+                        <input type="text" class="form-control" id="Titulo" name="Titulo" value="@Model.Titulo">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Propina" class="form-label">Propina</label>
+                        <span class="d-flex align-items-center gap-2">
+                            <input type="number" class="form-control" id="Propina" name="Propina" placeholder="10" style="width: 80px;" value="@Model.Propina"> %
+                        </span>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="bi bi-save me-2"></i>Guardar
+                        </button>
+                        <button type="reset" class="btn btn-outline-secondary">Cancelar</button>
+                    </div>
+                    <input type="hidden" name="PedidoId" value="@Model.PedidoId" />
+                    <input type="hidden" name="Fecha" value="@Model.Fecha" />
+                    <input type="hidden" name="Total" value="@Model.Total" />
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

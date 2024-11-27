@@ -86,14 +86,17 @@ namespace AMorfar_MVC.Controllers
             return RedirectToAction("AgregarPersonas", pedido);
         }
         [HttpPost]
-        public IActionResult EliminarPersona(Persona p, Pedido pedido)
+        public IActionResult EliminarPersona(int personaId)
         {
-            Persona? persona = null;
+            Persona? personaAEliminar = context.Personas
+                .Where(p => p.PersonaId == personaId)
+                .Include(p => p.Pedido) // Incluir las Personas relacionadas
+                .FirstOrDefault();
+
             string error = "";
             try
             {
-                persona = context.Personas.Find(p.PersonaId);
-                context.Remove(persona);
+                context.Personas.Remove(personaAEliminar);
                 context.SaveChanges();
             }
             catch (Exception ex)
@@ -102,7 +105,7 @@ namespace AMorfar_MVC.Controllers
                 ViewData.Add("Error", error);
             }
 
-            return RedirectToAction("AgregarPersonas", pedido);
+            return RedirectToAction("AgregarPersonas", personaAEliminar.Pedido);
         }
 
         public IActionResult Eliminar(int id)
@@ -144,6 +147,41 @@ namespace AMorfar_MVC.Controllers
             ViewBag.pedido = pedido;
 
             return View("Detalles");
+        }
+
+        [HttpGet]
+        public IActionResult Editar(int id)
+        {
+            Pedido? pedido = null;
+            try
+            {
+                pedido = context.Pedidos.Find(id);
+            }
+
+            catch (Exception ex)
+            {
+                ViewBag.error = ex.Message;
+            }
+            ViewBag.pedido = pedido;
+            return View(pedido);
+
+        }
+
+        [HttpPost]
+        public IActionResult Editar(Pedido pedido)
+        {
+            try
+            {
+                context.Pedidos.Update(pedido);
+                context.SaveChanges();
+            }
+
+            catch (Exception ex)
+            {
+                ViewBag.error = ex.Message;
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }
