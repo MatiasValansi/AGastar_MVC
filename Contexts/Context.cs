@@ -27,9 +27,9 @@ namespace AMorfar_MVC.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Persona>()
-                .HasOne(p=>p.Pedido)
-                .WithMany(p => p.Personas)
-                .HasForeignKey(p=>p.PedidoActual)
+                .HasOne(persona=>persona.Pedido)
+                .WithMany(persona => persona.Personas)
+                .HasForeignKey(persona => persona.PedidoActual)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<ComandasPersonas>() // Se especifica que la tabla intermedia es ComandasPersonas
@@ -39,13 +39,13 @@ namespace AMorfar_MVC.Contexts
                 .HasMany(p => p.Comandas)
                 .WithMany(c => c.Personas)
                 .UsingEntity<ComandasPersonas>( // Se especifica que la tabla intermedia ES ComandasPersonas
-                    j => j
+                    comandaPersona => comandaPersona
                         .HasOne(cp => cp.Comanda) // Se especifica la relación con Comanda
-                        .WithMany(c => c.ComandasPersonas) // Se especifica la relación con ComandasPersonas
-                        .HasForeignKey(cp => cp.IdComanda), 
-                    j => j
+                        .WithMany(comanda => comanda.ComandasPersonas) // Se especifica la relación con ComandasPersonas
+                        .HasForeignKey(cp => cp.IdComanda),
+                    comandaPersona => comandaPersona
                         .HasOne(cp => cp.Persona) // Se especifica la relación con Persona
-                        .WithMany(p => p.ComandasPersonas) // Se especifica la relación con ComandasPersonas
+                        .WithMany(persona => persona.ComandasPersonas) // Se especifica la relación con ComandasPersonas
                         .HasForeignKey(cp => cp.IdPersona));
         }
 
