@@ -12,6 +12,14 @@
     <section class="d-flex flex-column gap-5">
         <div class="text-center col-8 d-flex justify-content-center m-auto gap-5">
             <a class="fondoSecundario colorSecundario botonesNav" asp-controller="Pedido" asp-action="Detalles" asp-route-id="@pedido.PedidoId">Detalles</a>
+            @*
+            asp-controller="Pedido" significa que se invocará una acción del controlador PedidoController.
+            
+            asp-action="Detalles" indica la acción específica que se llamará dentro de PedidoController.
+            
+            asp-route-id="@pedido.PedidoId" agrega un parámetro de ruta (id) con el valor de pedido.PedidoId, 
+            que probablemente se use para identificar un registro específico en esa acción.
+            *@
             <a class="fondoSecundario colorSecundario botonesNav botonNavActivo">Gastos</a>
         </div>
 

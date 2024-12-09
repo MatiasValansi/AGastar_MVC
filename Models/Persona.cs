@@ -18,6 +18,7 @@ namespace AMorfar_MVC.Models
 
         public int PedidoActual { get; set; }
         
+        //Relaciones que tienen Persona en UML
         public List<ComandasPersonas>? ComandasPersonas { get; set; }
         public List<Comanda>? Comandas { get; set; }
 

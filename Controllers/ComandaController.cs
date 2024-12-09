@@ -8,7 +8,8 @@ namespace AMorfar_MVC.Controllers
 {
     public class ComandaController : Controller
     {
-        //Hago un context para PersonaController
+        //Hago un context para PersonaController 
+       
         readonly Context context = new();
         public IActionResult Index(int id)
         {
@@ -19,10 +20,10 @@ namespace AMorfar_MVC.Controllers
             {
                 pedido = context.Pedidos.Find(id);
                 comandas = context.Personas
-                    .Join(context.ComandasPersonas, p => p.PersonaId, cp => cp.IdPersona, (p, cp) => new { Persona = p, ComandaPersona = cp })
-                    .Join(context.Comandas, cp => cp.ComandaPersona.IdComanda, c => c.ComandaId, (cp, c) => new { PersonaComanda = cp, Comanda = c })
-                    .Where(cp => cp.PersonaComanda.Persona.PedidoActual == id)
-                    .GroupBy(cp => cp.Comanda) // Agrupar por comanda
+                    .Join(context.ComandasPersonas, p => p.PersonaId, cp => cp.IdPersona, (p, cp) => new { Persona = p, ComandaPersona = cp })//Crea un Objeto Anónimo (Objeto Nexo) que tiene a las propiedades de las 2 clases: Persona y ComandasPersonas
+                    .Join(context.Comandas, cp => cp.ComandaPersona.IdComanda, c => c.ComandaId, (cp, c) => new { PersonaComanda = cp, Comanda = c }) //Crea otro Objeto Anónimo pero con las propiedades de: Comanda y ComandasPersonas
+                    .Where(cp => cp.PersonaComanda.Persona.PedidoActual == id) // Busca dentro de cp coincidencias entre los ID
+                    .GroupBy(cp => cp.Comanda) // Agrupar por comanda 
                     .Select(group => group.Key) // Seleccionar la clave de cada grupo (comanda)
                     .ToList();
             }
@@ -36,8 +37,11 @@ namespace AMorfar_MVC.Controllers
             return View("Gastos");
         }
 
+
         public IActionResult Crear(int idPedido)
         {
+            //Se ejecuta 1°
+            //GET: Ingresar los gastos de la Comanda desde el teclado
             List<Persona>? personas = null;
 
             try
@@ -60,6 +64,8 @@ namespace AMorfar_MVC.Controllers
         [HttpPost]
         public IActionResult Crear(Comanda comanda, int[] PersonasSeleccionadas, int PedidoId)
         {
+            // Se ejecuta 2°
+            //POST: Una vez ingresados los datos por teclado, loe envía a la DB, luego, se encarga de mostrarlos por pantalla en el Index que es la View de "Gastos"
             double saldoAActualizar = 0;
 
             //Verificamos que la cantidad de PersonasSeleccionadas sea mayor a 0.
@@ -118,7 +124,7 @@ namespace AMorfar_MVC.Controllers
                     .Join(context.Personas, cp => cp.ComandaPersona.IdPersona, p => p.PersonaId, (cp, p) => new { PersonaComanda = cp, Persona = p })
                     .Where(cp => cp.PersonaComanda.Comanda.ComandaId == comandaId)
                     .Select(cp => cp.Persona)
-                    .ToList();
+                    .ToList(); //Convertimos a List las Personas que tiene la Comanda en Context
 
                 // Lista de personas incluidas en el producto de la comanda.
                 ViewBag.personas = personas;

@@ -59,14 +59,17 @@ namespace AMorfar_MVC.Controllers
 
         public IActionResult AgregarPersonas(Pedido pedido)
         {
+            //Agrega cada Persona por teclado
             ViewBag.pedido = pedido;
-            ViewBag.personas = context.Personas.Where(p => p.PedidoActual == pedido.PedidoId).ToList();
+            //Hace una lista con las personas que estan dentro del pedido a partir del ID del Pedido.
+            ViewBag.personas = context.Personas.Where(p => p.PedidoActual == pedido.PedidoId).ToList();//LINQ
             return View();
         }
 
         [HttpPost]
         public IActionResult AgregarPersonas(Pedido pedido, Persona persona)
         {
+            // Una vez ingresada la Persona por teclado, se encarga de añadir dicha persona a la BD.
             string error = "";
             Persona personaNueva = new()
             {
@@ -83,7 +86,9 @@ namespace AMorfar_MVC.Controllers
                 ViewData.Add("Error", error);
             }
 
+            //Retorno al GET AgregarPersonas()
             return RedirectToAction("AgregarPersonas", pedido);
+            //En este caso, pedido en el RedirectToAction() hace referencia al pedido que debe recibir el método AgregarPersonas(Pedido pedido) como parametro.
         }
         [HttpPost]
         public IActionResult EliminarPersona(int personaId)
@@ -114,6 +119,7 @@ namespace AMorfar_MVC.Controllers
             string error = "";
             try
             {
+                //Al presionar el botón de ELIMINAR, elimina el Pedido de la BD, pero se mantiene en el Index, tal como indica el RedirectToAction()
                 context.Remove<Pedido>(pedido);
                 context.SaveChanges();
             }

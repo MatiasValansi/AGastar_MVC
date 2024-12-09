@@ -34,6 +34,7 @@
                         <select class="form-select" id="Persona" name="PersonasSeleccionadas" multiple>
                             @foreach (Persona persona in ViewBag.Personas)
                             {
+                                //Muestra la lista de personas para seleccionar quien será parte del gasto
                                 <option id="@persona.PersonaId" value="@persona.PersonaId">@persona.Nombre</option>
                             }
                         </select>

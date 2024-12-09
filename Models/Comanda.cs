@@ -5,7 +5,7 @@ namespace AMorfar_MVC.Models
 {
     public class Comanda
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)] //Anotación para el ID en EF
         public int ComandaId { get; set; }
 
         public string? Descripcion { get; set; }

@@ -35,6 +35,12 @@
                             <div class="d-flex align-items-center gap-2">
                                 <p>@cadaPedido.Fecha.ToString("dd/MM/yyyy")</p>
                                 <a class="btn btn-sm btn-outline-primary me-1" title="Ver detalles" asp-action="Detalles" asp-route-id="@cadaPedido.PedidoId">
+                                    @*asp-route-id: hace referencia al parámetro llamado id
+                                    EJ: Si asp-route-id="@cadaPedido.PedidoId" y el valor de PedidoId es 5, 
+                                        entonces id=5 en la acción Detalles.
+                                        Por lo tanto, la URL será: Pedido/Detalles/5 ---> 5 = asp-route-id, Pedido = PedidoController, Detalles = View Detalles
+                                    *@
+
                                     <i class="bi bi-eye"></i>
                                 </a>
                                 <button asp-action="Eliminar" asp-route-id="@cadaPedido.PedidoId" class="btn btn-sm btn-outline-danger" title="Eliminar" type="submit">
