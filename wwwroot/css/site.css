@@ -127,7 +127,6 @@ nav{
 .botonesNav:hover{
     border: 2px solid var(--color-primario);
     text-decoration: none;
-    color
 }
 
 .botonNavActivo {
