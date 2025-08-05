@@ -9,6 +9,8 @@ namespace AMorfar_MVC
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -25,6 +27,10 @@ namespace AMorfar_MVC
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Pedido}/{action=Index}/{id?}");
+
+            var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+            app.Urls.Add($"http://*:{port}");
+
 
             app.Run();
         }
