@@ -46,7 +46,7 @@ namespace AMorfar_MVC.Controllers
 
             try
             {
-                context.AddPedido(pedidoNuevo);
+                //context.AddPedido(pedidoNuevo);
                 context.Pedidos.Add(pedidoNuevo);
 
 
