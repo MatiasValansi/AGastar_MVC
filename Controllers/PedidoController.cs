@@ -9,7 +9,8 @@ namespace AMorfar_MVC.Controllers
 {
     public class PedidoController : Controller 
     {
-        readonly Context context = new();
+        readonly MockContext context = MockContext.getInstance;
+
         public IActionResult Index()
         {
             List<Pedido>? pedidos = null;
@@ -45,8 +46,10 @@ namespace AMorfar_MVC.Controllers
 
             try
             {
-                context.Add(pedidoNuevo);
-                context.SaveChanges();
+                context.AddPedido(pedidoNuevo);
+                context.Pedidos.Add(pedidoNuevo);
+
+
 
                 return RedirectToAction("AgregarPersonas", pedidoNuevo);
             }
@@ -77,8 +80,8 @@ namespace AMorfar_MVC.Controllers
                 PedidoActual = pedido.PedidoId
             };
             try {
-                context.Add(personaNueva);
-                context.SaveChanges();
+                context.AddPersona(personaNueva);
+                
             }
             catch(Exception ex)
             {
@@ -93,16 +96,13 @@ namespace AMorfar_MVC.Controllers
         [HttpPost]
         public IActionResult EliminarPersona(int personaId)
         {
-            Persona? personaAEliminar = context.Personas
-                .Where(p => p.PersonaId == personaId)
-                .Include(p => p.Pedido) // Incluir las Personas relacionadas
-                .FirstOrDefault();
+            Persona? personaAEliminar = context.Personas.FirstOrDefault(p => p.PersonaId == personaId);
 
             string error = "";
             try
             {
                 context.Personas.Remove(personaAEliminar);
-                context.SaveChanges();
+                
             }
             catch (Exception ex)
             {
@@ -115,13 +115,13 @@ namespace AMorfar_MVC.Controllers
 
         public IActionResult Eliminar(int id)
         {
-            Pedido? pedido = context.Pedidos.Find(id);
+            Pedido? pedido = context.Pedidos.FirstOrDefault(p => p.PedidoId == id);
             string error = "";
             try
             {
                 //Al presionar el botón de ELIMINAR, elimina el Pedido de la BD, pero se mantiene en el Index, tal como indica el RedirectToAction()
-                context.Remove<Pedido>(pedido);
-                context.SaveChanges();
+                context.RemovePedido(pedido.PedidoId);
+                
             }
             catch (Exception ex)
             {
@@ -138,10 +138,8 @@ namespace AMorfar_MVC.Controllers
 
             try
             {
-                pedido = context.Pedidos
-                    .Where(p => p.PedidoId == id)
-                    .Include(p => p.Personas) // Incluir las Personas relacionadas
-                    .FirstOrDefault();
+                pedido = context.GetPedido(id);
+
             }
 
             catch (Exception ex)
@@ -161,7 +159,7 @@ namespace AMorfar_MVC.Controllers
             Pedido? pedido = null;
             try
             {
-                pedido = context.Pedidos.Find(id);
+                pedido = context.Pedidos.FirstOrDefault(p => p.PedidoId == id);
             }
 
             catch (Exception ex)
@@ -178,8 +176,8 @@ namespace AMorfar_MVC.Controllers
         {
             try
             {
-                context.Pedidos.Update(pedido);
-                context.SaveChanges();
+                context.EditarPedido(pedido);
+
             }
 
             catch (Exception ex)
